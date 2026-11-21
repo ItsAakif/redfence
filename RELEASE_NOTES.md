@@ -19,6 +19,11 @@ Stateful enterprise AI security evaluation: a deterministic, lifecycle-aware ben
 - Contract validate/test pass; invalid contracts exit 3; lifecycle revocation exits 0.
 - Loopback HTTP transport verified; property tests pass with Hypothesis; Inspect and OpenTelemetry adapters import and execute.
 
+## Verified in CI
+
+- Tag [`v0.3.0` run 44899468692](https://github.com/ItsAakif/redfence/actions/runs/44899468692) (commit `5d6965f`) passes all four cells: ubuntu-latest/Python 3.11, ubuntu-latest/Python 3.12, windows-latest/Python 3.11 and windows-latest/Python 3.12. The `main` run [44899274131](https://github.com/ItsAakif/redfence/actions/runs/44899274131) is also green; evidence is in `docs/verification/raw/85-v030-ci.txt`.
+- CI found a Windows/Linux portability bug: `test_config_digests_are_pinned` hashed raw CRLF bytes on the Linux checkout. `5d6965f` now computes config digests over LF-canonical bytes and adds a CRLF/LF regression test.
+
 ## Breaking changes
 
 - Every `scenario_id` and `evidence_id` changed because dataset identity now includes the 0.4.0 version.
@@ -29,7 +34,6 @@ Stateful enterprise AI security evaluation: a deterministic, lifecycle-aware ben
 ## Not verified
 
 - Live third-party HTTP/OpenAI-compatible endpoints (loopback transport is verified).
-- Python 3.11/3.12 and Linux (host verification used Python 3.14.7 on Windows; CI matrix is defined but its result is recorded in the Actions run, not here).
 - Docker / G6 / G9: historical fixture captured 2026-11-10, not re-run.
 
 ## Known limitations

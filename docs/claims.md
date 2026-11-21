@@ -6,7 +6,7 @@ test-module evidence, or be marked `not verified`. Statuses are limited to
 for a `not verified` row. A `verified` or `partial` row must point at a file
 that exists in the tree.
 
-The current 0.3.0 captures are `docs/verification/raw/70-*` … `raw/84-*`,
+The current 0.3.0 captures are `docs/verification/raw/70-*` … `raw/85-*`,
 summarised in [`docs/verification/v030-report.md`](verification/v030-report.md).
 Historical `60-*` captures remain valid for the 0.2.0 release and are not
 edited or reused as 0.3.0 evidence. The historical 0.2.0 claim
@@ -44,7 +44,7 @@ OpenTelemetry and loopback HTTP paths are verified by the captures below
 | Hypothesis property tests execute with the `property` extra installed | `docs/verification/raw/82-v030-property.txt` | verified | `python -m pytest -m property -q` |
 | PyYAML runtime path works with the `contract` extra installed | `docs/verification/raw/70-v030-tests.txt` | verified | `python -m pytest -o addopts="" -q` |
 | `import redfence` loads none of `yaml`, `hypothesis`, `inspect_ai` or `opentelemetry` | `docs/verification/raw/84-v030-import-smoke.txt` | verified | `python -c "import redfence, sys; print(redfence.__version__); print([m for m in ('yaml','hypothesis','inspect_ai','opentelemetry') if m in sys.modules])"` |
-| CI execution passes | `-` | not verified | `-` |
-| Python 3.11 / 3.12 pass | `-` | not verified | `-` |
-| Linux passes | `-` | not verified | `-` |
+| CI execution passes | `docs/verification/raw/85-v030-ci.txt` | verified | `gh run view 44899468692` |
+| Python 3.11 / 3.12 pass | `docs/verification/raw/85-v030-ci.txt` | verified | `gh run view 44899468692` |
+| Linux passes | `docs/verification/raw/85-v030-ci.txt` | verified | `gh run view 44899468692` |
 | Docker/G6/G9 re-run | `-` | not verified | `-` |

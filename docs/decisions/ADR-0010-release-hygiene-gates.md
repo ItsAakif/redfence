@@ -92,9 +92,10 @@ state (observed 2026-11-19):
 - No runtime behaviour change. `pyproject.toml` config changes; line wrapping and
   import order change many files mechanically.
 - New files: `bench/observations.py`, `.github/workflows/ci.yml`.
-- CI has never run; its first run may reveal platform-specific failures
-  (Windows paths, encoding). Treat those as defects, not as a reason to drop the
-  matrix. **NOT VERIFIED** until pushed.
+- CI has since run: the first push found a Windows/Linux portability defect
+  (CRLF vs LF config digests), fixed in `5d6965f`; the `v0.3.0` tag then passed
+  all four cells (Ubuntu/Windows × Python 3.11/3.12). See
+  `docs/verification/raw/85-v030-ci.txt`.
 
 ## Rollback
 

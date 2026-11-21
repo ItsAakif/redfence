@@ -24,7 +24,8 @@ and recorded **Evidence**.
 > hardening record is kept below as historical context. Full-suite, lint, type
 > and script results for 0.3.0 are recorded in the
 > [0.3.0 verification report](docs/verification/v030-report.md), backed by
-> `docs/verification/raw/70-*` … `raw/84-*`.
+> `docs/verification/raw/70-*` … `raw/85-*`; CI is green on Ubuntu and Windows
+> with Python 3.11 and 3.12 at tag `v0.3.0`.
 
 ## What exists at 0.3.0
 

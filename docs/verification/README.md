@@ -31,12 +31,13 @@ exit=<process exit code>
 <captured stdout/stderr>
 ```
 
-The current hardening captures are `raw/60-*` through `raw/69-*`.
+The current 0.3.0 captures are `raw/70-*` through `raw/85-*`.
 
 ## Claim policy
 
 A claim without a raw capture in `raw/` is **NOT VERIFIED**. A claim that cannot
 be reproduced on the recorded host is reported as `NOT VERIFIED` rather than
-estimated or inferred. See the hardening report's scope and limitations for the
-items that remain unverified by design (CI execution, Docker/G6/G9, Linux and
-Python 3.11/3.12).
+estimated or inferred. See the 0.3.0 report's scope and limitations for the items
+that remain unverified (live third-party HTTP and Docker/G6/G9). CI execution,
+Linux and Python 3.11/3.12 are verified by
+[`raw/85-v030-ci.txt`](raw/85-v030-ci.txt).

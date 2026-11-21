@@ -2,12 +2,13 @@
 
 Status: **current source of truth for 0.3.0 verification claims.**
 Date: 2026-11-21.
-Companion records: [`raw/70-*`](raw/70-v030-tests.txt) - [`raw/84-*`](raw/84-v030-import-smoke.txt)
+Companion records: [`raw/70-*`](raw/70-v030-tests.txt) - [`raw/85-*`](raw/85-v030-ci.txt)
 (immutable captures), [`docs/claims.md`](../claims.md) (claim register) and
 [`docs/decisions/`](../decisions/) (accepted ADRs).
 
-Every number below is copied from a `raw/70-*` - `raw/84-*` capture made on the
-verification host on 2026-11-21. A claim without such a capture is
+Every local number below is copied from a `raw/70-*` - `raw/84-*` capture made
+on the verification host on 2026-11-21; the CI results in section 3 are copied
+from `raw/85-*`. A claim without such a capture is
 **NOT VERIFIED**. The 0.2.0 hardening record in
 [`hardening-report.md`](hardening-report.md) remains the historical 0.2.0 source
 of truth and is not superseded for 0.2.0 numbers.
@@ -72,7 +73,30 @@ Notes on the measurements:
   commands in the same capture exit `0`.
 - The numbers in this table belong to the immutable captures `raw/70`-`raw/84`.
 
-## 3. Review findings fixed
+## 3. Verified by CI
+
+The tag `v0.3.0` (commit `5d6965f`) passes the four-cell GitHub Actions matrix
+in [`raw/85`](raw/85-v030-ci.txt):
+
+| Run | Ref | Cells | Result |
+| --- | --- | --- | --- |
+| [44899468692](https://github.com/ItsAakif/redfence/actions/runs/44899468692) | tag `v0.3.0` / `5d6965f` | ubuntu-latest / Python 3.11, ubuntu-latest / Python 3.12, windows-latest / Python 3.11, windows-latest / Python 3.12 | all success, exit `0` |
+| [44899274131](https://github.com/ItsAakif/redfence/actions/runs/44899274131) | `main` | same four cells | all success, exit `0` |
+
+The workflow installs `[dev,contract,property,inspect,otel]` and runs the test
+suite, ruff, mypy, `pip check`, the import smoke test, the example contract
+validate/test, the mutation self-test and the property tests on each cell. This
+establishes CI execution, Python 3.11/3.12 and Linux as verified for this
+release.
+
+The first push run, [44898592110](https://github.com/ItsAakif/redfence/actions/runs/44898592110),
+failed on both Ubuntu cells: `test_config_digests_are_pinned` hashed raw CRLF
+bytes on the Linux checkout, so the LF-pinned config digests did not match.
+Commit `5d6965f` normalises CRLF to LF before hashing and adds
+`test_config_digest_is_line_ending_independent`; all four cells then passed.
+This Windows-versus-Linux portability bug is recorded in section 7.
+
+## 4. Review findings fixed
 
 The 2026-11-20 adversarial review raised fourteen findings. The two release
 blockers (F1, F2) and the F3/F6/F8/F9/F12 batch are fixed; each one is covered
@@ -116,7 +140,7 @@ at [`raw/77`](raw/77-v030-mutation.txt) with `score=1.00`. F7 (conservative
 `..` rejection) was left unchanged: it is a false-positive risk in a model
 name, not an authorization bypass.
 
-## 4. Library-level facets
+## 5. Library-level facets
 
 Lineage, existence, repair, capability, MCP and retention/replica are
 **library-level facets in 0.3.0**. They are exercised end-to-end through the
@@ -144,7 +168,7 @@ permutation, poisoned manifest and non-propagating replica); it exits `2` only
 if a facet raises. Running it loads none of `yaml`, `inspect_ai`,
 `opentelemetry` or `hypothesis` (subprocess check in the suite, `raw/70`).
 
-## 5. Limitations and residual risk
+## 6. Limitations and residual risk
 
 - `apply_repair` mutates the live run target (cache/memory/ACL/ingest) and has no
   rollback. Treat it as the last operation on a dedicated `ScenarioRun`; later
@@ -160,11 +184,11 @@ if a facet raises. Running it loads none of `yaml`, `inspect_ai`,
   which needs no optional dependency (F14).
 - DNS rebinding remains a residual risk for an allowlisted host: the allowlist
   checks the request hostname, not the resolved address. Live third-party HTTP
-  is not verified in this release; only the loopback transport is (section 8).
+  is not verified in this release; only the loopback transport is (section 9).
 - F7: `..` is rejected in every contract string, including a model name; this is
   intentionally conservative and is a false-positive risk rather than a bypass.
 
-## 6. Version and compatibility break list
+## 7. Version and compatibility break list
 
 - Package version is **`0.3.0`**; dataset version is
   **`redfencebench-0.4.0`**.
@@ -172,7 +196,8 @@ if a facet raises. Running it loads none of `yaml`, `inspect_ai`,
   change**: classic document content and `CLASSIC_CONTENT_HASHES` are unchanged.
 - Lifecycle **config-digest pins are computed over LF-canonical bytes** (CRLF is
   normalised to LF before hashing), and `tests/test_dataset.py` has a CRLF/LF
-  regression test, so the digests agree on Windows and Linux.
+  regression test, so the digests agree on Windows and Linux. The first CI run
+  found the raw-CRLF digest mismatch on Ubuntu; `5d6965f` fixed it (section 3).
 - Because the dataset version is part of scenario identity, **every
   `scenario_id` and every `evidence_id` changes**, as do report bytes and
   manifest digests. Historical `raw/60-*` captures keep their old ids and are
@@ -183,19 +208,16 @@ if a facet raises. Running it loads none of `yaml`, `inspect_ai`,
 - The existing fifteen deterministic oracles and `default_oracles()` are
   unchanged.
 
-## 7. NOT VERIFIED
+## 8. NOT VERIFIED
 
 The following are **not** exercised by the 0.3.0 captures and must not be read as
 verified:
 
 - Live third-party HTTP / OpenAI-compatible endpoints. The loopback transport is
-  locally verified (section 8), but no external service is contacted.
-- Actual CI execution.
-- Python 3.11 / 3.12.
-- Linux.
+  locally verified (section 9), but no external service is contacted.
 - Docker / G6 / G9 (historical 2026-11-10 fixtures, not re-run).
 
-## 8. Verified locally
+## 9. Verified locally
 
 The following are **verified locally** on the verification host with
 `[dev,contract,property,inspect,otel]` installed, each backed by a capture:
@@ -217,18 +239,18 @@ The following are **verified locally** on the verification host with
   rejection before any connection; and a JSON request body carrying the action
   and identity fields.
 
-Live third-party HTTP, actual CI execution, Python 3.11/3.12, Linux and Docker
-remain **NOT VERIFIED** (section 7).
+Live third-party HTTP and Docker remain **NOT VERIFIED** (section 8). CI
+execution, Python 3.11/3.12 and Linux are verified by section 3.
 
-## 9. Publication
+## 10. Publication
 
 The repository is prepared for publication at `ItsAakif/redfence`, tagged
 `v0.3.0`. The CI workflow installs all extras
 (`[dev,contract,property,inspect,otel]`) and runs the suite, lint, type check,
 dependency check, import smoke, contract example and property tests. CI
-execution itself remains **NOT VERIFIED** (section 7).
+execution is verified on all four cells by the tag run (section 3).
 
-## 10. Evidence index
+## 11. Evidence index
 
 - [`raw/70-v030-tests.txt`](raw/70-v030-tests.txt)
 - [`raw/71-v030-coverage.txt`](raw/71-v030-coverage.txt)
@@ -245,3 +267,4 @@ execution itself remains **NOT VERIFIED** (section 7).
 - [`raw/82-v030-property.txt`](raw/82-v030-property.txt)
 - [`raw/83-v030-http-loopback.txt`](raw/83-v030-http-loopback.txt)
 - [`raw/84-v030-import-smoke.txt`](raw/84-v030-import-smoke.txt)
+- [`raw/85-v030-ci.txt`](raw/85-v030-ci.txt)

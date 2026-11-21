@@ -1,0 +1,23 @@
+date=2026-11-21
+command=gh run view 44899468692
+cwd=E:\Projects\AI-ML\Redfence
+interpreter=GitHub Actions
+platform=ubuntu-latest + windows-latest
+commit=5d6965f
+exit=0
+---
+✓ v0.3.0 CI · 44899468692
+✓ ubuntu-latest / Python 3.11 in 51s (ID 136832135332)
+✓ ubuntu-latest / Python 3.12 in 40s (ID 136832135194)
+✓ windows-latest / Python 3.11 in 1m45s (ID 136832135384)
+✓ windows-latest / Python 3.12 in 2m6s (ID 136832135469)
+View this run on GitHub: https://github.com/ItsAakif/redfence/actions/runs/44899468692
+
+main push run 44899274131: all four cells success (same matrix).
+https://github.com/ItsAakif/redfence/actions/runs/44899274131
+
+Note: the first push run, 44898592110, failed on both Ubuntu cells because
+test_config_digests_are_pinned hashed CRLF bytes on the Linux checkout.
+Commit 5d6965f canonicalises config digests to LF bytes and adds a CRLF/LF
+regression test; run 44899468692 at 5d6965f is green on all four cells.
+https://github.com/ItsAakif/redfence/actions/runs/44898592110
