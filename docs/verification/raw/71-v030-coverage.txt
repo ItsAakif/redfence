@@ -11,10 +11,10 @@ exit=0
 ........................................................................ [ 35%]
 ........................................................................ [ 46%]
 ........................................................................ [ 58%]
-.........................ss............................................. [ 70%]
-........................................................................ [ 82%]
+..........................ss............................................ [ 70%]
+........................................................................ [ 81%]
 ........................................................................ [ 93%]
-......................................                                   [100%]
+.......................................                                  [100%]
 =============================== tests coverage ================================
 _______________ coverage: platform win32, python 3.14.7-final-0 _______________
 
@@ -49,7 +49,7 @@ src\redfence\bench\repair.py                         106      2    98%   159, 18
 src\redfence\bench\retention_oracles.py               48      2    96%   73, 119
 src\redfence\bench\runner.py                          90      2    98%   55, 163
 src\redfence\bench\scenario.py                       119      1    99%   53
-src\redfence\bench\snapshot.py                        23      0   100%
+src\redfence\bench\snapshot.py                         23      0   100%
 src\redfence\cli.py                                  133      9    93%   46, 48, 72, 74, 94-108
 src\redfence\contracts\__init__.py                     3      0   100%
 src\redfence\contracts\loader.py                     179     20    89%   64-65, 67, 74, 82, 89, 145-148, 168-171, 177-178, 201, 211, 214, 216
@@ -58,7 +58,7 @@ src\redfence\contracts\target.py                     277     26    91%   112, 16
 src\redfence\core\__init__.py                          4      0   100%
 src\redfence\core\capability.py                      114      4    96%   189-190, 227-228
 src\redfence\core\clock.py                            10      0   100%
-src\redfence\core\domain.py                          132      0   100%
+src\redfence\core\domain.py                           132      0   100%
 src\redfence\core\evidence.py                         27      0   100%
 src\redfence\core\ids.py                              23      0   100%
 src\redfence\core\lineage.py                          76      1    99%   85
@@ -85,4 +85,4 @@ src\redfence\targets\trace.py                         15      0   100%
 src\redfence\version.py                                1      0   100%
 --------------------------------------------------------------------------------
 TOTAL                                               4236    244    94%
-612 passed, 2 skipped in 23.57s
+613 passed, 2 skipped in 24.85s

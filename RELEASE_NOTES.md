@@ -13,7 +13,7 @@ Stateful enterprise AI security evaluation: a deterministic, lifecycle-aware ben
 
 ## Verification (local, 2026-11-21)
 
-- 612 tests passed, 2 skipped (the two skips assert the missing-extra behaviour and are skipped when extras are installed).
+- 613 tests passed, 2 skipped (the two skips assert the missing-extra behaviour and are skipped when extras are installed).
 - 94% coverage; ruff and mypy clean; pip check clean.
 - Demo G2 12/12; held-out 7/7; template sweep 42/42; statistics 8 families / 24 rows over 25 seeds.
 - Contract validate/test pass; invalid contracts exit 3; lifecycle revocation exits 0.

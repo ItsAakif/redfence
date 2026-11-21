@@ -19,7 +19,7 @@ OpenTelemetry and loopback HTTP paths are verified by the captures below
 
 | claim | evidence | status | command |
 | --- | --- | --- | --- |
-| 612 tests pass, 2 skipped (0.3.0) | `docs/verification/raw/70-v030-tests.txt` | verified | `python -m pytest -o addopts="" -q` |
+| 613 tests pass, 2 skipped (0.3.0) | `docs/verification/raw/70-v030-tests.txt` | verified | `python -m pytest -o addopts="" -q` |
 | Test coverage is 94% over `src/redfence` (4236 statements, 244 missed) | `docs/verification/raw/71-v030-coverage.txt` | verified | `python -m pytest -o addopts="" -q --cov=redfence --cov-report=term-missing` |
 | Demo discriminates 12/12 faults (G2 PASS); secured exits 0, vulnerable exits 1 | `docs/verification/raw/72-v030-demo.txt` | verified | `python -m redfence.cli demo --out reports\final-v030-demo` |
 | reports are byte-identical for fixed inputs (covered by suite determinism tests; not a dedicated capture) | `docs/verification/raw/70-v030-tests.txt` | partial | `python -m pytest -o addopts="" -q` |

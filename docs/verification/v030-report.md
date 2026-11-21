@@ -39,7 +39,7 @@ In scope for this release and exercised by the captures:
 
 | Area | Capture | Result |
 | --- | --- | --- |
-| Full suite | [`raw/70`](raw/70-v030-tests.txt) | `612 passed, 2 skipped`, exit `0` |
+| Full suite | [`raw/70`](raw/70-v030-tests.txt) | `613 passed, 2 skipped`, exit `0` |
 | Coverage | [`raw/71`](raw/71-v030-coverage.txt) | `94%` total (4236 statements, 244 missed), exit `0` |
 | Demo / G2 | [`raw/72`](raw/72-v030-demo.txt) | G2 `PASS`, 12/12 faults discriminated; secured exit `0`, vulnerable exit `1` |
 | Contract validate (mock) | [`raw/73`](raw/73-v030-contract.txt) | `valid contract=mock-boundary-demo`, exit `0` |
@@ -170,6 +170,9 @@ if a facet raises. Running it loads none of `yaml`, `inspect_ai`,
   **`redfencebench-0.4.0`**.
 - The dataset bump is a **provenance-schema/config change, not a content
   change**: classic document content and `CLASSIC_CONTENT_HASHES` are unchanged.
+- Lifecycle **config-digest pins are computed over LF-canonical bytes** (CRLF is
+  normalised to LF before hashing), and `tests/test_dataset.py` has a CRLF/LF
+  regression test, so the digests agree on Windows and Linux.
 - Because the dataset version is part of scenario identity, **every
   `scenario_id` and every `evidence_id` changes**, as do report bytes and
   manifest digests. Historical `raw/60-*` captures keep their old ids and are

@@ -93,13 +93,19 @@ MANIFEST_DIGESTS = {
     "three_tenant": "a48f3638a45b12fcc04c62f549c6177e3448bf79cd9f0732b15c274442bf054e",
 }
 
-# SHA-256 of each checked-in lifecycle config *file* (byte-level, so the pinned
-# digest also covers formatting and key ordering).
+def _lf_digest(path: Path) -> str:
+    """SHA-256 of canonical LF text; JSON line endings are not semantic."""
+    return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
+
+
+# SHA-256 of each checked-in lifecycle config *file*, pinned over LF-canonical
+# bytes so Windows and Linux checkouts agree. Line endings are not semantic for
+# JSON; the digest still covers formatting and key ordering.
 CONFIG_DIGESTS = {
-    "lineage": "5c0f8ece63cbc983ec8f7bd74ac2b7e390f8ef40644ab676c3c1178c51d0ed5f",
-    "existence": "64d8b15fff05a30503421977ffd46a9781da87648762238027fc13ffc5e505bb",
-    "repair": "895da4aa1283e30aa43fc553b59526a252829b14e0e5b82116c61bea25e63073",
-    "replication": "2c5db4b7fdb0678508c45db569b477a6c1a3288d6e80472f7478ced0bf284490",
+    "lineage": "ff86b6ea51785705e1b6dad8dbe4e97b970ea97300c5a3f8648d32cbcebb5567",
+    "existence": "3ca8063aabad6e8beb68f9c6fecfbaf92766bbb23cf38cc840732372d74ced17",
+    "repair": "8a862a97f6e376ef43c721d0e0535814f9b1fdb0abfcda0fe39a70d219384b6e",
+    "replication": "6e5aad5e90e3536f6dcd18e14ae01663aa6a45f98aa6d3ec8f802acc4cff1263",
 }
 
 
@@ -241,11 +247,19 @@ def test_checked_in_configs_match_generator(tmp_path):
 def test_config_digests_are_pinned():
     for kind, expected in CONFIG_DIGESTS.items():
         path = DATASET_DIR / "configs" / f"{kind}.json"
-        digest = hashlib.sha256(path.read_bytes()).hexdigest()
+        digest = _lf_digest(path)
         assert digest == expected, (
             f"config digest for {kind!r} changed: regenerate only for an "
             "intentional dataset change"
         )
+
+
+def test_config_digest_is_line_ending_independent(tmp_path):
+    source = DATASET_DIR / "configs" / "lineage.json"
+    data = source.read_bytes().replace(b"\r\n", b"\n")
+    crlf = tmp_path / "lineage.json"
+    crlf.write_bytes(data.replace(b"\n", b"\r\n"))
+    assert _lf_digest(crlf) == CONFIG_DIGESTS["lineage"]
 
 
 def test_config_payloads_have_expected_schema():
