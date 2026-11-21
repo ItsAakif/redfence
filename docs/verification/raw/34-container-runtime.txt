@@ -1,0 +1,40 @@
+﻿=== CONTAINER RUNTIME PROBE ===
+--- podman ---
+where.exe : INFO: Could not find files for the given pattern(s).
+At E:\Projects\AI-ML\Redfence\.verify\queue\014-container-runtime.ps1:9 char:5
++     & where.exe $cmd 2>&1 | Out-File -FilePath $out -Append -Encoding ...
++     ~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (INFO: Could not...ven pattern(s).:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[exit=1]
+--- nerdctl ---
+where.exe : INFO: Could not find files for the given pattern(s).
+At E:\Projects\AI-ML\Redfence\.verify\queue\014-container-runtime.ps1:9 char:5
++     & where.exe $cmd 2>&1 | Out-File -FilePath $out -Append -Encoding ...
++     ~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (INFO: Could not...ven pattern(s).:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[exit=1]
+--- containerd ---
+where.exe : INFO: Could not find files for the given pattern(s).
+At E:\Projects\AI-ML\Redfence\.verify\queue\014-container-runtime.ps1:9 char:5
++     & where.exe $cmd 2>&1 | Out-File -FilePath $out -Append -Encoding ...
++     ~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (INFO: Could not...ven pattern(s).:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[exit=1]
+--- docker-compose ---
+C:\Users\aakif\AppData\Local\Programs\DockerDesktop\resources\bin\docker-compose
+C:\Users\aakif\AppData\Local\Programs\DockerDesktop\resources\bin\docker-compose.exe
+[exit=0]
+--- docker ---
+C:\Users\aakif\AppData\Local\Programs\DockerDesktop\resources\bin\docker
+C:\Users\aakif\AppData\Local\Programs\DockerDesktop\resources\bin\docker.exe
+[exit=0]
+--- Docker install dirs ---
+MISSING 
+DIR C:\Users\aakif\AppData\Local\Docker
+MISSING 

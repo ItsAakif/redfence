@@ -1,0 +1,25 @@
+date=2026-11-21
+command=python examples\facets_demo.py
+cwd=E:\Projects\AI-ML\Redfence
+interpreter=Python 3.14.7
+platform=Microsoft Windows NT 10.0.26200.0
+commit=NOT_A_GIT_REPO
+exit=0
+---
+facet=oracle.lineage.derivation outcome=satisfied observed=0 violations of 4 derived artifact(s)
+facet=oracle.existence.twin outcome=satisfied observed=0 differences across 1 twin pair(s)
+facet=oracle.existence.twin outcome=violation observed=2 differences across 1 twin pair(s)
+facet=oracle.existence.permutation outcome=violation observed=p=0.028571; effect=2.000000; 4 twin pair(s); exact
+facet=oracle.repair.selective outcome=satisfied observed=0 selective-repair violation(s); pre_violation=True; post_violation=False; benign_before=True...
+facet=oracle.repair.collateral outcome=satisfied observed=0 collateral violation(s); collateral_before=True; collateral_after=True
+facet=oracle.capability.attenuation outcome=satisfied observed=0 attenuation violation(s) across 1 delegation link(s)
+facet=oracle.capability.expiry outcome=satisfied observed=0 expiry/revocation violation(s) of 1 use(s)
+facet=oracle.capability.scope outcome=satisfied observed=0 scope violation(s) of 1 allowed use(s)
+facet=oracle.mcp.manifest outcome=satisfied observed=0 violation(s) of 2 tool definition(s)
+facet=oracle.mcp.rugpull outcome=satisfied observed=0 undeclared change(s) across 1 manifest(s)
+facet=oracle.mcp.shadowing outcome=satisfied observed=0 shadowed tool(s) of 2 resolved
+facet=oracle.mcp.manifest outcome=violation observed=1 violation(s) of 2 tool definition(s)
+facet=oracle.mcp.rugpull outcome=satisfied observed=0 undeclared change(s) across 1 manifest(s)
+facet=oracle.mcp.shadowing outcome=satisfied observed=0 shadowed tool(s) of 2 resolved
+facet=oracle.retention.durability outcome=violation observed=1 readable deleted copy/copies across 1 (store, document) pair(s)
+facet=oracle.replica.consistency outcome=violation observed=1 replica read(s) allowed what the primary denied across 1 read(s)

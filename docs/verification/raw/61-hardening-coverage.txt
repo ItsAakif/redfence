@@ -1,0 +1,58 @@
+date=2026-11-19
+command=.venv\Scripts\python.exe -m pytest -o addopts="" -q --cov=redfence --cov-report=term-missing
+cwd=E:\Projects\AI-ML\Redfence
+interpreter=Python 3.14.7
+platform=Microsoft Windows NT 10.0.26200.0
+commit=NOT_A_GIT_REPO
+exit=0
+---
+........................................................................ [ 27%]
+........................................................................ [ 55%]
+........................................................................ [ 83%]
+...........................................                              [100%]
+=============================== tests coverage ================================
+_______________ coverage: platform win32, python 3.14.7-final-0 _______________
+
+Name                                               Stmts   Miss  Cover   Missing
+--------------------------------------------------------------------------------
+src\redfence\__init__.py                               3      0   100%
+src\redfence\adapters\__init__.py                      4      0   100%
+src\redfence\adapters\deterministic_embedder.py       26      2    92%   23, 41
+src\redfence\adapters\deterministic_generator.py      11      0   100%
+src\redfence\adapters\in_memory_vector_store.py       41      2    95%   32, 67
+src\redfence\api\__init__.py                           2      2     0%   3-5
+src\redfence\api\app.py                                3      3     0%   6-10
+src\redfence\bench\__init__.py                         5      0   100%
+src\redfence\bench\authorization.py                   15      1    93%   30
+src\redfence\bench\dataset.py                        146     19    87%   106, 112, 134, 140, 146, 473, 476, 482-483, 487, 491-492, 494, 496, 500, 502, 505-506, 512
+src\redfence\bench\evaluation.py                      56      2    96%   39, 108
+src\redfence\bench\heldout.py                        137      5    96%   309, 338-344
+src\redfence\bench\isolated.py                        25      3    88%   76, 82-83
+src\redfence\bench\metrics.py                        147     11    93%   51, 65, 84, 90, 112, 146-149, 155, 234
+src\redfence\bench\observations.py                    67      0   100%
+src\redfence\bench\oracle_worker.py                   50      9    82%   33, 36, 44, 108-118, 122
+src\redfence\bench\oracles.py                        299     13    96%   78, 93-96, 116, 330, 368, 414-415, 479, 620, 657
+src\redfence\bench\runner.py                          90      2    98%   55, 163
+src\redfence\bench\scenario.py                       116      1    99%   45
+src\redfence\cli.py                                   63      4    94%   32, 34, 58, 60
+src\redfence\core\__init__.py                          4      0   100%
+src\redfence\core\clock.py                            10      0   100%
+src\redfence\core\domain.py                          132      1    99%   103
+src\redfence\core\evidence.py                         27      0   100%
+src\redfence\core\ids.py                              23      0   100%
+src\redfence\core\protocols.py                        22     22     0%   8-82
+src\redfence\db\__init__.py                            2      2     0%   12-14
+src\redfence\db\models.py                              1      1     0%   7
+src\redfence\report\__init__.py                        3      0   100%
+src\redfence\report\html_report.py                    28      0   100%
+src\redfence\report\json_report.py                    10      0   100%
+src\redfence\targets\__init__.py                       6      0   100%
+src\redfence\targets\config.py                        31      0   100%
+src\redfence\targets\policy.py                        13      3    77%   39-41
+src\redfence\targets\rag_target.py                   224      7    97%   249, 263, 316, 318, 347, 507, 519
+src\redfence\targets\tools.py                         66      6    91%   96, 99, 106-109, 159, 161
+src\redfence\targets\trace.py                         15      0   100%
+src\redfence\version.py                                1      0   100%
+--------------------------------------------------------------------------------
+TOTAL                                               1924    121    94%
+259 passed in 7.38s

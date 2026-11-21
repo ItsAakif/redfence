@@ -1,0 +1,10 @@
+date=2026-11-21
+command=python -c "import redfence, sys; print(redfence.__version__); print([m for m in ('yaml','hypothesis','inspect_ai','opentelemetry') if m in sys.modules])"
+cwd=E:\Projects\AI-ML\Redfence
+interpreter=Python 3.14.7
+platform=Microsoft Windows NT 10.0.26200.0
+commit=NOT_A_GIT_REPO
+exit=0
+---
+0.3.0
+[]

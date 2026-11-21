@@ -1,0 +1,38 @@
+﻿=== DOC REFERENCE GREP ===
+docs\decisions\ADR-0005-authoritative-acl-oracles.md:13: integrity remains a separate, currently unsupported control.
+docs\prior-art\methodology-comparison.md:24: - RedFence reports **security and utility together**, and declares unsupported
+docs\standards\traceability.md:8: Status legend: `implemented` (executable oracle) · `partial` · `unsupported`
+docs\standards\traceability.md:23: | C8.1.2 metadata immutable after write | `revocation` metadata fault | authoritative-ACL comparison | no stored-metadata divergence | unsupported (fault declared) |
+docs\verification\milestone-3-report.md:70: | `mutable_document_metadata` | Document metadata can diverge from authority | `FaultFlags(mutable_document_metadata=True)` | Metadata-integrity violation | none | `oracle.unsupported.metadata_integrity` | none | no | coverage oracle reports unsupported | **unsupported** |
+docs\verification\milestone-3-report.md:73: | `missing_source_freshness` | Freshness check omitted on reuse | `FaultFlags(missing_source_freshness=True)` | Stale evidence reused | none | `oracle.unsupported.freshness` | none | no | coverage oracle reports unsupported | **unsupported** |
+docs\verification\milestone-3-report.md:78: **Exactly two faults are unsupported:** `mutable_document_metadata` and
+docs\verification\milestone-3-report.md:79: `missing_source_freshness`. They have config switches and fault-to-oracle
+docs\verification\milestone-3-report.md:81: unsupported instead of passing them.
+docs\verification\milestone-3-report.md:152: | Vulnerable | 1 | 9 oracles violation; coverage oracle unsupported for the two unsupported faults; utility preserved |
+docs\verification\milestone-3-report.md:161: ## 10. Dataset integrity and held-out execution
+docs\verification\milestone-3-report.md:168: - development and held-out family lists are disjoint;
+docs\verification\milestone-3-report.md:174: **Held-out evaluation is unsupported.** The four held-out family names are
+docs\verification\milestone-3-report.md:175: declared, but there are **0 executable held-out scenarios**
+docs\verification\milestone-3-report.md:176: (`heldout_executable_scenarios=0`). No transformed/paraphrased held-out template
+docs\verification\milestone-3-report.md:241: | G7 Dataset integrity and splits | **PARTIAL** | Deterministic corpus, manifest hashes, canary uniqueness, tenant separation, family-disjoint split. Held-out families have 0 executable scenarios and were not run. |
+docs\verification\milestone-3-report.md:263: been demonstrated (G6/G9), held-out scenarios are not executable (G7), and the
+docs\verification\milestone-3-report.md:265: faults are unsupported. The correct next milestone is to demonstrate real
+docs\verification\milestone-3-report.md:266: service/credential isolation, implement and execute held-out families, and add
+docs\benchmark-spec.md:52: of `satisfied`, `violation`, `unsupported`, `inconclusive`.
+docs\benchmark-spec.md:133: | G7 | Dataset integrity and split quality | **partial** — family-disjoint splits defined; held-out families reserved, not exercised |
+docs\benchmark-spec.md:143: - `2` inconclusive, unsupported, or infrastructure failure
+docs\benchmark-spec.md:155: | `mutable_document_metadata` | metadata integrity | — | **unsupported** |
+docs\benchmark-spec.md:158: | `missing_source_freshness` | freshness validation | — | **unsupported** |
+docs\dataset-card.md:32: Template **families** are disjoint between development and held-out sets (no
+docs\dataset-card.md:37: - **Held-out:** `delegation.chain`, `memory.poison.persistence`,
+docs\dataset-card.md:40: Held-out families are defined and reserved but **not yet exercised** by the
+docs\dataset-card.md:57: - Held-out families unexercised, so generalisation is not yet measured.
+docs\dataset-card.md:62: splits is low. Residual risk: a held-out family could share surface wording with
+docs\engineering-report.md:69: | G7 dataset integrity/splits | **partial** | families disjoint; held-out reserved |
+docs\engineering-report.md:95: - Held-out families unexercised; no generalisation measurement.
+docs\engineering-report.md:96: - `mutable_document_metadata` and `missing_source_freshness` are declared
+docs\engineering-report.md:97: unsupported.
+docs\engineering-report.md:113: 3. Exercise held-out families and add scenario-clustered statistics.
+docs\engineering-report.md:114: 4. Implement the unsupported faults and add Docker/credential isolation for G6.
+docs\engineering-report.md:122: declared unsupported coverage and CI exit semantics.
+README.md:52: exit code (`0` pass, `1` confirmed regression, `2` inconclusive/unsupported).

@@ -1,0 +1,11 @@
+﻿=== DOCKER WSL PROBE ===
+Linux Aakif 6.18.33.2-microsoft-standard-WSL2 #1 SMP PREEMPT_DYNAMIC Thu Jun 18 21:54:43 UTC 2026 x86_64 Linux
+[exit=0]
+PID   USER     TIME  COMMAND
+    1 root      0:00 {init(docker-des} /init
+    7 root      0:00 {init} plan9 --control-socket 6 --log-level 4 --server-fd 7 --pipe-fd 9 --log-truncate
+   13 root      0:00 {SessionLeader} /init
+   14 root      0:00 {Relay(15)} /init
+   15 root      0:00 sh -c command -v dockerd; ls -l /var/run/docker.sock 2>/dev/null; ps aux | head
+   17 root      0:00 ps aux
+[exit=0]

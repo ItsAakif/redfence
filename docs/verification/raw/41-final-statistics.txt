@@ -1,0 +1,33 @@
+family=revocation.same_query
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+family=revocation.paraphrase
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+family=cache.revalidate
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+family=tenant.isolation
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+family=tool.authorization
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+family=deletion.cascade
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+family=delegation.chain
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+family=memory.poison.persistence
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+family=cache.semantic_similarity
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+family=mcp.tool_scope
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+
+families=10 separated=10 all_deterministic=True
+note: zero-width intervals mean the deterministic target is invariant across seeds; they are not evidence of a zero-variance human sample.

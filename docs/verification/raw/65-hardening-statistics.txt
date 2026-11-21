@@ -1,0 +1,84 @@
+date=2026-11-19
+command=.venv\Scripts\python.exe scripts\run_statistics.py --seeds 25 --templates
+cwd=E:\Projects\AI-ML\Redfence
+interpreter=Python 3.14.7
+platform=Microsoft Windows NT 10.0.26200.0
+commit=NOT_A_GIT_REPO
+exit=0
+---
+template=classic family=revocation
+  clusters=25 evaluable_clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True evaluable=True deterministic_across_seeds=True
+template=classic family=delegation.chain
+  clusters=25 evaluable_clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True evaluable=True deterministic_across_seeds=True
+template=classic family=memory.poison.persistence
+  clusters=25 evaluable_clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True evaluable=True deterministic_across_seeds=True
+template=classic family=cache.semantic_similarity
+  clusters=25 evaluable_clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True evaluable=True deterministic_across_seeds=True
+template=classic family=mcp.tool_scope
+  clusters=25 evaluable_clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True evaluable=True deterministic_across_seeds=True
+template=classic family=deletion.propagation.cache_memory
+  clusters=25 evaluable_clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True evaluable=True deterministic_across_seeds=True
+template=classic family=acl.modify.replay
+  clusters=25 evaluable_clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True evaluable=True deterministic_across_seeds=True
+template=classic family=memory.ttl.expiry
+  clusters=25 evaluable_clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True evaluable=True deterministic_across_seeds=True
+template=secret_tier family=revocation
+  clusters=25 evaluable_clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True evaluable=True deterministic_across_seeds=True
+template=secret_tier family=delegation.chain
+  clusters=25 evaluable_clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True evaluable=True deterministic_across_seeds=True
+template=secret_tier family=memory.poison.persistence
+  clusters=25 evaluable_clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True evaluable=True deterministic_across_seeds=True
+template=secret_tier family=cache.semantic_similarity
+  clusters=25 evaluable_clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True evaluable=True deterministic_across_seeds=True
+template=secret_tier family=mcp.tool_scope
+  clusters=25 evaluable_clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True evaluable=True deterministic_across_seeds=True
+template=secret_tier family=deletion.propagation.cache_memory
+  clusters=25 evaluable_clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True evaluable=True deterministic_across_seeds=True
+template=secret_tier family=acl.modify.replay
+  clusters=25 evaluable_clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True evaluable=True deterministic_across_seeds=True
+template=secret_tier family=memory.ttl.expiry
+  clusters=25 evaluable_clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True evaluable=True deterministic_across_seeds=True
+template=three_tenant family=revocation
+  clusters=25 evaluable_clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True evaluable=True deterministic_across_seeds=True
+template=three_tenant family=delegation.chain
+  clusters=25 evaluable_clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True evaluable=True deterministic_across_seeds=True
+template=three_tenant family=memory.poison.persistence
+  clusters=25 evaluable_clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True evaluable=True deterministic_across_seeds=True
+template=three_tenant family=cache.semantic_similarity
+  clusters=25 evaluable_clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True evaluable=True deterministic_across_seeds=True
+template=three_tenant family=mcp.tool_scope
+  clusters=25 evaluable_clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True evaluable=True deterministic_across_seeds=True
+template=three_tenant family=deletion.propagation.cache_memory
+  clusters=25 evaluable_clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True evaluable=True deterministic_across_seeds=True
+template=three_tenant family=acl.modify.replay
+  clusters=25 evaluable_clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True evaluable=True deterministic_across_seeds=True
+template=three_tenant family=memory.ttl.expiry
+  clusters=25 evaluable_clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True evaluable=True deterministic_across_seeds=True
+
+families=8 rows=24 separated=24 unevaluable=0 all_deterministic=True
+note: zero-width intervals mean the deterministic target is invariant across seeds; they are not evidence of a zero-variance human sample.
+note: 8 scenario families; the six dev facet labels are facets of one scenario and are not independent samples.

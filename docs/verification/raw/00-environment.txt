@@ -1,0 +1,52 @@
+=== INTERPRETER DISCOVERY ===
+--- py -0p ---
+ -V:3.14 *        D:\Python-3.14\python.exe
+ -V:3.13          D:\Python-3.13\python.exe
+--- py -3.12 --version ---
+powershell.exe : py.exe : No suitable Python runtime found
+At E:\Projects\AI-ML\Redfence\.verify\runner.ps1:16 char:23
++ ...   $output = & powershell.exe -NoProfile -ExecutionPolicy Bypass -File ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (py.exe : No sui...n runtime found:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+At E:\Projects\AI-ML\Redfence\.verify\queue\010-install.ps1:13 char:1
++ & py -3.12 --version 2>&1 | Tee-Object -FilePath $envFile -Append
++ ~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (No suitable Python runtime found:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Pass --list (-0) to see all detected environments on your machine
+or set environment variable PYLAUNCHER_ALLOW_INSTALL to use winget
+or open the Microsoft Store to the requested version.
+[py3.12 exit=103]
+--- python --version ---
+Python 3.14.7
+[python exit=0]
+--- where python ---
+D:\Python-3.14\python.exe
+D:\Python-3.13\python.exe
+--- python3 --version ---
+& : The term 'python3' is not recognized as the name of a cmdlet, function, script file, or operable program. Check 
+the spelling of the name, or if a path was included, verify that the path is correct and try again.
+At E:\Projects\AI-ML\Redfence\.verify\queue\010-install.ps1:21 char:3
++ & python3 --version 2>&1 | Tee-Object -FilePath $envFile -Append
++   ~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (python3:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+[python3 exit=0]
+--- OS ---
+Microsoft Windows NT 10.0.26200.0
+
+
+Caption        : Microsoft Windows 11 Home Single Language
+Version        : 10.0.26200
+BuildNumber    : 26200
+OSArchitecture : 64-bit
+
+
+
+
+--- PowerShell ---
+5.1.26100.9168

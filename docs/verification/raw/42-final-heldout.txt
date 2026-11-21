@@ -1,0 +1,12 @@
+family=delegation.chain             secured_exit=0 vulnerable_exit=1 ok=True
+  secured_violations=[]
+  vulnerable_violations=['oracle.tool.policy']
+family=memory.poison.persistence    secured_exit=0 vulnerable_exit=1 ok=True
+  secured_violations=[]
+  vulnerable_violations=['oracle.memory.scope']
+family=cache.semantic_similarity    secured_exit=0 vulnerable_exit=1 ok=True
+  secured_violations=[]
+  vulnerable_violations=['oracle.cache.key_scope', 'oracle.cache.leak']
+family=mcp.tool_scope               secured_exit=0 vulnerable_exit=1 ok=True
+  secured_violations=[]
+  vulnerable_violations=['oracle.tool.policy']

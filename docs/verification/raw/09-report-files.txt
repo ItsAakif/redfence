@@ -1,0 +1,20 @@
+﻿=== REPORT FILES (FINAL) ===
+
+FullName                                                                          Length LastWriteTime       
+--------                                                                          ------ -------------       
+E:\Projects\AI-ML\Redfence\reports\demo\scenario_661c75afe08a4c7f.html              4455 11/8/2026 3:30:10 PM
+E:\Projects\AI-ML\Redfence\reports\demo\scenario_661c75afe08a4c7f.json             14184 11/8/2026 3:30:10 PM
+E:\Projects\AI-ML\Redfence\reports\demo\scenario_cc7b7f8fd1b2029c.html              4359 11/8/2026 3:30:10 PM
+E:\Projects\AI-ML\Redfence\reports\demo\scenario_cc7b7f8fd1b2029c.json              9712 11/8/2026 3:30:10 PM
+E:\Projects\AI-ML\Redfence\reports\json-secured\scenario_cc7b7f8fd1b2029c.html      4359 11/8/2026 3:30:09 PM
+E:\Projects\AI-ML\Redfence\reports\json-secured\scenario_cc7b7f8fd1b2029c.json      9712 11/8/2026 3:30:09 PM
+E:\Projects\AI-ML\Redfence\reports\json-vulnerable\scenario_661c75afe08a4c7f.html   4455 11/8/2026 3:30:09 PM
+E:\Projects\AI-ML\Redfence\reports\json-vulnerable\scenario_661c75afe08a4c7f.json  14184 11/8/2026 3:30:09 PM
+E:\Projects\AI-ML\Redfence\reports\vertical-slice\scenario_661c75afe08a4c7f.html    4455 11/8/2026 3:30:08 PM
+E:\Projects\AI-ML\Redfence\reports\vertical-slice\scenario_661c75afe08a4c7f.json   14184 11/8/2026 3:30:08 PM
+E:\Projects\AI-ML\Redfence\reports\vertical-slice\scenario_cc7b7f8fd1b2029c.html    4359 11/8/2026 3:30:08 PM
+E:\Projects\AI-ML\Redfence\reports\vertical-slice\scenario_cc7b7f8fd1b2029c.json    9712 11/8/2026 3:30:08 PM
+
+
+
+[exit=0 elapsed=0.39s]

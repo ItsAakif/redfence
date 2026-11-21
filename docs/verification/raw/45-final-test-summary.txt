@@ -1,0 +1,27 @@
+=== TEST SUMMARY ===
+date=2026-11-10T21:28:25.2177789+05:30
+--- collect-only ---
+tests/test_adapters.py: 3
+tests/test_authorization.py: 5
+tests/test_cache.py: 9
+tests/test_cli_exit_codes.py: 5
+tests/test_dataset.py: 4
+tests/test_discriminative_validity.py: 21
+tests/test_heldout.py: 1
+tests/test_memory.py: 4
+tests/test_metadata.py: 2
+tests/test_metrics.py: 8
+tests/test_oracle_independence.py: 1
+tests/test_oracle_isolation.py: 3
+tests/test_reports.py: 3
+tests/test_reproducibility.py: 3
+tests/test_secured_profile.py: 4
+tests/test_tools.py: 3
+
+
+collect_exit=0
+--- plain run ---
+........................................................................ [ 91%]
+.......                                                                  [100%]
+
+pytest_exit=0

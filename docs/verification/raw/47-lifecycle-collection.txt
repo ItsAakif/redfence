@@ -1,0 +1,25 @@
+$ .venv\Scripts\python.exe -m pytest --collect-only -q
+exit=0
+---
+tests/test_acl_lifecycle.py: 5
+tests/test_adapters.py: 3
+tests/test_authorization.py: 5
+tests/test_cache.py: 9
+tests/test_cli_exit_codes.py: 5
+tests/test_dataset.py: 11
+tests/test_deletion_propagation.py: 6
+tests/test_discriminative_validity.py: 25
+tests/test_heldout.py: 2
+tests/test_memory.py: 4
+tests/test_memory_expiry.py: 3
+tests/test_metadata.py: 2
+tests/test_metrics.py: 8
+tests/test_oracle_independence.py: 1
+tests/test_oracle_isolation.py: 3
+tests/test_reports.py: 3
+tests/test_reproducibility.py: 3
+tests/test_scenario.py: 4
+tests/test_secured_profile.py: 4
+tests/test_template_invariants.py: 38
+tests/test_tools.py: 3
+

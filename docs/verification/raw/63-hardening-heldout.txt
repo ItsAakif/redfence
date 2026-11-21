@@ -1,0 +1,29 @@
+date=2026-11-19
+command=.venv\Scripts\python.exe scripts\run_heldout.py --out reports\hardening-heldout
+cwd=E:\Projects\AI-ML\Redfence
+interpreter=Python 3.14.7
+platform=Microsoft Windows NT 10.0.26200.0
+commit=NOT_A_GIT_REPO
+exit=0
+---
+family=delegation.chain             secured_exit=0 vulnerable_exit=1 ok=True
+  secured_violations=[]
+  vulnerable_violations=['oracle.tool.policy']
+family=memory.poison.persistence    secured_exit=0 vulnerable_exit=1 ok=True
+  secured_violations=[]
+  vulnerable_violations=['oracle.memory.scope']
+family=cache.semantic_similarity    secured_exit=0 vulnerable_exit=1 ok=True
+  secured_violations=[]
+  vulnerable_violations=['oracle.cache.key_scope', 'oracle.cache.leak']
+family=mcp.tool_scope               secured_exit=0 vulnerable_exit=1 ok=True
+  secured_violations=[]
+  vulnerable_violations=['oracle.tool.policy']
+family=deletion.propagation.cache_memory secured_exit=0 vulnerable_exit=1 ok=True
+  secured_violations=[]
+  vulnerable_violations=['oracle.cache.deletion_propagation', 'oracle.memory.deletion_propagation']
+family=acl.modify.replay            secured_exit=0 vulnerable_exit=1 ok=True
+  secured_violations=[]
+  vulnerable_violations=['oracle.cache.leak', 'oracle.context.exposure']
+family=memory.ttl.expiry            secured_exit=0 vulnerable_exit=1 ok=True
+  secured_violations=[]
+  vulnerable_violations=['oracle.memory.scope']

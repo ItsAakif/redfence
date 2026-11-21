@@ -1,0 +1,31 @@
+﻿=== JSON REPORT GENERATION (FINAL) ===
+profile=secured scenario=scenario_cc7b7f8fd1b2029c exit=0
+  [  satisfied] oracle.index.acl: 0 unauthorized admission(s) of 5 checked
+  [  satisfied] oracle.index.tenant: 0 cross-tenant admission(s) of 5 checked
+  [  satisfied] oracle.index.deletion: 0 retrievable deleted chunk(s)
+  [  satisfied] oracle.cache.key_scope: 0 unscoped cache key(s) of 4
+  [  satisfied] oracle.cache.leak: 0 leak(s) across 0 cache hit(s)
+  [  satisfied] oracle.context.exposure: 0 unauthorized context chunk(s) of 5 checked
+  [  satisfied] oracle.response.disclosure: 0 canary disclosure(s)
+  [  satisfied] oracle.memory.scope: 0 violation(s) of 2 record(s)
+  [  satisfied] oracle.tool.policy: 0 violation(s) of 3 call(s)
+  [  satisfied] oracle.utility.benign: benign task succeeded
+  [  satisfied] oracle.coverage.unsupported: no unsupported faults enabled
+json=reports\json-secured\scenario_cc7b7f8fd1b2029c.json
+html=reports\json-secured\scenario_cc7b7f8fd1b2029c.html
+[exit=0 elapsed=0.91s]
+profile=vulnerable scenario=scenario_661c75afe08a4c7f exit=1
+  [  violation] oracle.index.acl: 10 unauthorized admission(s) of 15 checked
+  [  violation] oracle.index.tenant: 10 cross-tenant admission(s) of 25 checked
+  [  violation] oracle.index.deletion: 2 retrievable deleted chunk(s)
+  [  violation] oracle.cache.key_scope: 2 unscoped cache key(s) of 2
+  [  violation] oracle.cache.leak: 11 leak(s) across 2 cache hit(s)
+  [  violation] oracle.context.exposure: 15 unauthorized context chunk(s) of 20 checked
+  [  violation] oracle.response.disclosure: 4 canary disclosure(s)
+  [  violation] oracle.memory.scope: 4 violation(s) of 4 record(s)
+  [  violation] oracle.tool.policy: 5 violation(s) of 3 call(s)
+  [  satisfied] oracle.utility.benign: benign task succeeded
+  [unsupported] oracle.coverage.unsupported: unsupported: mutable_document_metadata, missing_source_freshness
+json=reports\json-vulnerable\scenario_661c75afe08a4c7f.json
+html=reports\json-vulnerable\scenario_661c75afe08a4c7f.html
+[exit=1 elapsed=0.74s]

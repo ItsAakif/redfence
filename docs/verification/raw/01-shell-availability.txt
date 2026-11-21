@@ -1,0 +1,74 @@
+Raw record: shell/execution availability probe — REDFENCE Milestone 3
+=====================================================================
+Recorded by the agent on the milestone-3 verification thread
+(44084225-4b51-484a-9b66-4ff1a794cdfe). This file contains verbatim tool
+output. Nothing in this record was fabricated; each entry below is the
+literal result returned by the tooling.
+
+ATTEMPT 1 — harness `bash` tool, command: `ls && git status --short | head -50 && git log --oneline -5`
+Verbatim output:
+    Skipping command-line '"C:\Program Files\Git\bin\..\usr\bin\bash.exe"'
+    ('C:\Program Files\Git\bin\..\usr\bin\bash.exe' not found)
+    Need a valid command-line; Edit the string resources accordingly
+
+Command exited with code 1
+
+ATTEMPT 2 — harness `bash` tool, command: `echo ok`
+Verbatim output:
+    Skipping command-line '"C:\Program Files\Git\bin\..\usr\bin\bash.exe"'
+    ('C:\Program Files\Git\bin\..\usr\bin\bash.exe' not found)
+    Need a valid command-line; Edit the string resources accordingly
+
+Command exited with code 1
+
+Note: the failure occurs before the command text is interpreted — the
+harness cannot spawn any shell at all. Command content is irrelevant.
+
+FILE-EXISTENCE PROBES (via the harness `read` tool, which does not use
+bash; result verbatim):
+
+1) C:\Program Files\Git\usr\bin\bash.exe
+   -> ENOENT: no such file or directory
+   (This is the exact path the harness and the Git bin\bash.exe
+   compat launcher resolve to. It is MISSING.)
+
+2) C:\Program Files\Git\bin\bash.exe
+   -> EXISTS. Binary inspection shows it is Git for Windows'
+      "compat-bash.exe" launcher shim, file version 2.55.0.windows.4.
+      Its embedded string resource contains the launch target
+      "EXEPATH\..\usr\bin\bash.exe" and the error strings
+      "Skipping command-line '%s' ('%s' not found)" and
+      "Need a valid command-line; Edit the string resources accordingly",
+      which match the errors above exactly. I.e. bin\bash.exe is a
+      launcher whose only job is to exec ..\usr\bin\bash.exe — which
+      does not exist on this machine.
+
+3) C:\Program Files\Git\cmd\git.exe
+   -> EXISTS (git.exe shim, 2.55.0.windows.4). Git core is installed;
+      the MSYS2 usr/bin layer that carries bash.exe is missing/incomplete.
+
+4) C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+   -> EXISTS. Windows PowerShell is installed, but no harness tool in
+      this session can invoke it (see below).
+
+5) C:\Users\aakif\.pi\agent\settings.json
+   -> ENOENT (no pi settings file that could redirect the shell).
+
+6) C:\msys64\usr\bin\bash.exe  -> ENOENT (no MSYS2 install)
+7) C:\cygwin64\bin\bash.exe    -> ENOENT (no Cygwin install)
+
+8) E:\Projects\AI-ML\Redfence\.venv\Scripts\python.exe
+   -> ENOENT (no pre-existing virtualenv from earlier runs)
+
+TOOL INVENTORY CHECKS:
+- tool_search("powershell") -> "No matching tools found."
+  (The pi harness also ships a `powershell` tool, but this session does
+  not register it; `bash` is the only shell tool available here.)
+- No alternative command-execution tool exists in this session
+  (read/write/edit are file-only; browser preview tools evaluate JS in
+  a web page sandbox and cannot spawn processes).
+
+INTERPRETER ATTEMPTS (py -3.12, python, python3): NOT EXECUTABLE.
+These commands are themselves shell commands; every route to them goes
+through the same broken shell spawn, so none could be attempted. Their
+versions are therefore unknown/not executed.

@@ -1,0 +1,88 @@
+date=2026-11-21
+command=python -m pytest -o addopts="" -q --cov=redfence --cov-report=term-missing
+cwd=E:\Projects\AI-ML\Redfence
+interpreter=Python 3.14.7
+platform=Microsoft Windows NT 10.0.26200.0
+commit=NOT_A_GIT_REPO
+exit=0
+---
+........................................................................ [ 11%]
+........................................................................ [ 23%]
+........................................................................ [ 35%]
+........................................................................ [ 46%]
+........................................................................ [ 58%]
+.........................ss............................................. [ 70%]
+........................................................................ [ 82%]
+........................................................................ [ 93%]
+......................................                                   [100%]
+=============================== tests coverage ================================
+_______________ coverage: platform win32, python 3.14.7-final-0 _______________
+
+Name                                               Stmts   Miss  Cover   Missing
+--------------------------------------------------------------------------------
+src\redfence\__init__.py                               3      0   100%
+src\redfence\adapters\__init__.py                      4      0   100%
+src\redfence\adapters\deterministic_embedder.py       26      2    92%   23, 41
+src\redfence\adapters\deterministic_generator.py      11      0   100%
+src\redfence\adapters\in_memory_vector_store.py       41      1    98%   32
+src\redfence\api\__init__.py                           2      2     0%   3-5
+src\redfence\api\app.py                                3      3     0%   6-10
+src\redfence\bench\__init__.py                         5      0   100%
+src\redfence\bench\authorization.py                   15      1    93%   30
+src\redfence\bench\contract_observations.py           30      0   100%
+src\redfence\bench\contract_oracles.py                96      0   100%
+src\redfence\bench\contract_runner.py                280     19    93%   157, 162, 164, 241-242, 270-271, 289-290, 295-296, 302-303, 329, 331, 339, 588, 593-594
+src\redfence\bench\dataset.py                        146     19    87%   106, 112, 134, 140, 146, 473, 476, 482-483, 487, 491-492, 494, 496, 500, 502, 505-506, 512
+src\redfence\bench\evaluation.py                      56      2    96%   39, 108
+src\redfence\bench\existence.py                      139      0   100%
+src\redfence\bench\heldout.py                        148      7    95%   134, 146, 347, 376-382
+src\redfence\bench\isolated.py                        25      3    88%   76, 82-83
+src\redfence\bench\lifecycle_oracles.py               55      1    98%   99
+src\redfence\bench\lineage.py                        134      6    96%   257-259, 316-318
+src\redfence\bench\mcp.py                            190     22    88%   167, 170, 181, 187, 190, 197, 200, 203, 208, 213, 215, 217, 256-257, 260, 274, 276, 281-282, 288, 292-293
+src\redfence\bench\metrics.py                        147     11    93%   51, 65, 84, 90, 112, 146-149, 155, 234
+src\redfence\bench\mutation.py                        77      1    99%   80
+src\redfence\bench\observations.py                    67      0   100%
+src\redfence\bench\oracle_worker.py                   32      6    81%   81-91, 95
+src\redfence\bench\oracles.py                        299     13    96%   78, 93-96, 116, 330, 368, 414-415, 479, 620, 657
+src\redfence\bench\repair.py                         106      2    98%   159, 183
+src\redfence\bench\retention_oracles.py               48      2    96%   73, 119
+src\redfence\bench\runner.py                          90      2    98%   55, 163
+src\redfence\bench\scenario.py                       119      1    99%   53
+src\redfence\bench\snapshot.py                        23      0   100%
+src\redfence\cli.py                                  133      9    93%   46, 48, 72, 74, 94-108
+src\redfence\contracts\__init__.py                     3      0   100%
+src\redfence\contracts\loader.py                     179     20    89%   64-65, 67, 74, 82, 89, 145-148, 168-171, 177-178, 201, 211, 214, 216
+src\redfence\contracts\schema.py                     145      7    95%   151-153, 171-173, 181
+src\redfence\contracts\target.py                     277     26    91%   112, 166, 171, 173, 175, 178, 192, 196, 211, 216, 218, 235, 238, 240, 245, 249, 301, 320, 323, 359, 365, 370, 384, 404, 454, 493
+src\redfence\core\__init__.py                          4      0   100%
+src\redfence\core\capability.py                      114      4    96%   189-190, 227-228
+src\redfence\core\clock.py                            10      0   100%
+src\redfence\core\domain.py                          132      0   100%
+src\redfence\core\evidence.py                         27      0   100%
+src\redfence\core\ids.py                              23      0   100%
+src\redfence\core\lineage.py                          76      1    99%   85
+src\redfence\core\protocols.py                        22     22     0%   8-82
+src\redfence\db\__init__.py                            2      2     0%   12-14
+src\redfence\db\models.py                              1      1     0%   7
+src\redfence\integrations\__init__.py                  2      0   100%
+src\redfence\integrations\inspect_task.py             21      5    76%   30-31, 47-49
+src\redfence\integrations\otel.py                     23      2    91%   42-43
+src\redfence\report\__init__.py                        6      0   100%
+src\redfence\report\contract_report.py                42      2    95%   104, 144
+src\redfence\report\html_report.py                    28      0   100%
+src\redfence\report\json_report.py                    10      0   100%
+src\redfence\report\junit.py                          24      0   100%
+src\redfence\report\sarif.py                          30      0   100%
+src\redfence\targets\__init__.py                       6      0   100%
+src\redfence\targets\config.py                        31      0   100%
+src\redfence\targets\http_boundary.py                  3      3     0%   9-19
+src\redfence\targets\policy.py                        25      1    96%   80
+src\redfence\targets\rag_target.py                   240      5    98%   282, 335, 337, 366, 538
+src\redfence\targets\retention.py                     98      2    98%   117-122
+src\redfence\targets\tools.py                         66      6    91%   96, 99, 106-109, 159, 161
+src\redfence\targets\trace.py                         15      0   100%
+src\redfence\version.py                                1      0   100%
+--------------------------------------------------------------------------------
+TOTAL                                               4236    244    94%
+612 passed, 2 skipped in 23.57s

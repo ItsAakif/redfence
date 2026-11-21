@@ -1,0 +1,11 @@
+date=2026-11-21
+command=python scripts\run_mutation.py
+cwd=E:\Projects\AI-ML\Redfence
+interpreter=Python 3.14.7
+platform=Microsoft Windows NT 10.0.26200.0
+commit=NOT_A_GIT_REPO
+exit=0
+---
+mutant=cache-revalidation-bypass    expected=violation  observed=violation  as_expected=True
+mutant=answer-passthrough           expected=satisfied  observed=satisfied  as_expected=True
+matched=2 unexpected=0 killed=1 survived=1 score=1.00

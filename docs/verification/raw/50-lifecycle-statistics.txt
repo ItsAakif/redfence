@@ -1,0 +1,123 @@
+$ .venv\Scripts\python.exe scripts\run_statistics.py --seeds 25 --templates
+exit=0
+---
+template=classic family=revocation.same_query
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+template=classic family=revocation.paraphrase
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+template=classic family=cache.revalidate
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+template=classic family=tenant.isolation
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+template=classic family=tool.authorization
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+template=classic family=deletion.cascade
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+template=classic family=delegation.chain
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+template=classic family=memory.poison.persistence
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+template=classic family=cache.semantic_similarity
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+template=classic family=mcp.tool_scope
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+template=classic family=deletion.propagation.cache_memory
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+template=classic family=acl.modify.replay
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+template=classic family=memory.ttl.expiry
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+template=secret_tier family=revocation.same_query
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+template=secret_tier family=revocation.paraphrase
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+template=secret_tier family=cache.revalidate
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+template=secret_tier family=tenant.isolation
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+template=secret_tier family=tool.authorization
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+template=secret_tier family=deletion.cascade
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+template=secret_tier family=delegation.chain
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+template=secret_tier family=memory.poison.persistence
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+template=secret_tier family=cache.semantic_similarity
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+template=secret_tier family=mcp.tool_scope
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+template=secret_tier family=deletion.propagation.cache_memory
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+template=secret_tier family=acl.modify.replay
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+template=secret_tier family=memory.ttl.expiry
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+template=three_tenant family=revocation.same_query
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+template=three_tenant family=revocation.paraphrase
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+template=three_tenant family=cache.revalidate
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+template=three_tenant family=tenant.isolation
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+template=three_tenant family=tool.authorization
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+template=three_tenant family=deletion.cascade
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+template=three_tenant family=delegation.chain
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+template=three_tenant family=memory.poison.persistence
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+template=three_tenant family=cache.semantic_similarity
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+template=three_tenant family=mcp.tool_scope
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+template=three_tenant family=deletion.propagation.cache_memory
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+template=three_tenant family=acl.modify.replay
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+template=three_tenant family=memory.ttl.expiry
+  clusters=25 secured=0.00 ci=[0.00,0.00] vulnerable=1.00 ci=[1.00,1.00]
+  difference=1.00 ci=[1.00,1.00] separated=True deterministic_across_seeds=True
+
+families=39 separated=39 all_deterministic=True
+note: zero-width intervals mean the deterministic target is invariant across seeds; they are not evidence of a zero-variance human sample.

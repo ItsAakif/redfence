@@ -1,0 +1,15 @@
+faults: 12
+supported: 12
+unsupported: []
+deleted_doc_retrievable -> oracle.index.deletion
+lost_chunk_acl_metadata -> oracle.index.acl
+missing_query_acl -> oracle.index.acl
+missing_source_freshness -> oracle.cache.freshness
+missing_tenant_filter -> oracle.index.tenant
+mutable_document_metadata -> oracle.metadata.integrity
+stale_cache_after_deletion -> oracle.cache.deletion_propagation
+stale_cache_after_revocation -> oracle.cache.leak
+stale_memory_after_deletion -> oracle.memory.deletion_propagation
+unauthorized_memory_content -> oracle.memory.scope
+unauthorized_tool_execution -> oracle.tool.policy
+unscoped_cache_key -> oracle.cache.key_scope

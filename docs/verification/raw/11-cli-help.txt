@@ -1,0 +1,13 @@
+﻿=== CLI HELP / ENTRY POINT ===
+usage: redfence [-h] {run,demo} ...
+
+RedFenceBench CLI
+
+positional arguments:
+  {run,demo}
+    run       run one security profile
+    demo      run secured + vulnerable and check G2
+
+options:
+  -h, --help  show this help message and exit
+[exit=0 elapsed=0.85s]

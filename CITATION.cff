@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use RedFence or RedFenceBench in research, please cite this software."
+title: "RedFence: stateful enterprise AI security evaluation"
+abstract: >-
+  RedFence is an open-source AI security assessment platform. Its core research
+  component, RedFenceBench, measures security invariant violations across the
+  lifecycle of stateful enterprise RAG applications and tool-using agents using
+  deterministic oracles and recorded evidence.
+type: software
+version: "0.3.0"
+date-released: "2026-11-20"
+license: Apache-2.0
+authors:
+  - name: "RedFence Contributors"
+keywords:
+  - ai-security
+  - rag
+  - benchmark
+  - authorization
+  - agents

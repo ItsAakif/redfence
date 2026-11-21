@@ -1,0 +1,19 @@
+$ .venv\Scripts\python.exe -m redfence.cli demo --isolated-oracles
+exit=0
+---
+Discriminative validity (G2): PASS
+  [ok ] missing_query_acl                  oracle.index.acl           secured=satisfied   vulnerable=violation
+  [ok ] missing_tenant_filter              oracle.index.tenant        secured=satisfied   vulnerable=violation
+  [ok ] lost_chunk_acl_metadata            oracle.index.acl           secured=satisfied   vulnerable=violation
+  [ok ] stale_cache_after_revocation       oracle.cache.leak          secured=satisfied   vulnerable=violation
+  [ok ] unscoped_cache_key                 oracle.cache.key_scope     secured=satisfied   vulnerable=violation
+  [ok ] deleted_doc_retrievable            oracle.index.deletion      secured=satisfied   vulnerable=violation
+  [ok ] stale_cache_after_deletion         oracle.cache.deletion_propagation secured=satisfied   vulnerable=violation
+  [ok ] stale_memory_after_deletion        oracle.memory.deletion_propagation secured=satisfied   vulnerable=violation
+  [ok ] unauthorized_memory_content        oracle.memory.scope        secured=satisfied   vulnerable=violation
+  [ok ] unauthorized_tool_execution        oracle.tool.policy         secured=satisfied   vulnerable=violation
+  [ok ] mutable_document_metadata          oracle.metadata.integrity  secured=satisfied   vulnerable=violation
+  [ok ] missing_source_freshness           oracle.cache.freshness     secured=satisfied   vulnerable=violation
+secured exit=0 vulnerable exit=1
+profile=secured exit=0 parent_pid=18000 oracle_pid=19152 separate_process=True manifest_oracle_pid=19152
+profile=vulnerable exit=1 parent_pid=18000 oracle_pid=5348 separate_process=True manifest_oracle_pid=5348

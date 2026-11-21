@@ -1,0 +1,43 @@
+﻿=== PYTEST COVERAGE (NEXT STEP) ===
+........................................................................ [ 96%]
+...                                                                      [100%]
+=============================== tests coverage ================================
+_______________ coverage: platform win32, python 3.14.7-final-0 _______________
+
+Name                                               Stmts   Miss  Cover   Missing
+--------------------------------------------------------------------------------
+src\redfence\__init__.py                               3      0   100%
+src\redfence\adapters\__init__.py                      4      0   100%
+src\redfence\adapters\deterministic_embedder.py       26      2    92%   23, 41
+src\redfence\adapters\deterministic_generator.py      11      0   100%
+src\redfence\adapters\in_memory_vector_store.py       41      2    95%   32, 67
+src\redfence\api\__init__.py                           2      2     0%   3-5
+src\redfence\api\app.py                                2      2     0%   6-8
+src\redfence\bench\__init__.py                         5      0   100%
+src\redfence\bench\authorization.py                   15      2    87%   26, 35
+src\redfence\bench\dataset.py                         47      2    96%   56, 62
+src\redfence\bench\heldout.py                         88      8    91%   153, 173-175, 180-186
+src\redfence\bench\metrics.py                        171     14    92%   41, 55, 74, 80, 102, 136-139, 145, 157, 232-233, 252
+src\redfence\bench\oracles.py                        230     12    95%   48, 61-64, 72, 84, 155, 285-286, 443, 484
+src\redfence\bench\runner.py                          77      3    96%   52, 109, 118
+src\redfence\bench\scenario.py                        95      1    99%   36
+src\redfence\cli.py                                   48      5    90%   27, 29, 44, 47, 49
+src\redfence\core\__init__.py                          4      0   100%
+src\redfence\core\domain.py                          128      2    98%   97, 101
+src\redfence\core\evidence.py                         26      0   100%
+src\redfence\core\ids.py                              19      0   100%
+src\redfence\core\protocols.py                        22     22     0%   8-82
+src\redfence\db\__init__.py                            2      2     0%   12-14
+src\redfence\db\models.py                              1      1     0%   7
+src\redfence\report\__init__.py                        3      0   100%
+src\redfence\report\html_report.py                    28      0   100%
+src\redfence\report\json_report.py                    10      0   100%
+src\redfence\targets\__init__.py                       6      0   100%
+src\redfence\targets\config.py                        29      1    97%   58
+src\redfence\targets\policy.py                        13      3    77%   39-41
+src\redfence\targets\rag_target.py                   147      3    98%   149, 330, 342
+src\redfence\targets\tools.py                         64      6    91%   93, 96, 101-102, 150, 152
+src\redfence\targets\trace.py                         15      1    93%   24
+--------------------------------------------------------------------------------
+TOTAL                                               1382     96    93%
+[exit=0 elapsed=2.49s]

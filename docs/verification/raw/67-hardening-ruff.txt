@@ -1,0 +1,9 @@
+date=2026-11-19
+command=ruff check . --no-cache
+cwd=E:\Projects\AI-ML\Redfence
+interpreter=Python 3.14.7
+platform=Microsoft Windows NT 10.0.26200.0
+commit=NOT_A_GIT_REPO
+exit=0
+---
+All checks passed!

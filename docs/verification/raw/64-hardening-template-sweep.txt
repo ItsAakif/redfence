@@ -1,0 +1,53 @@
+date=2026-11-19
+command=.venv\Scripts\python.exe scripts\run_template_sweep.py
+cwd=E:\Projects\AI-ML\Redfence
+interpreter=Python 3.14.7
+platform=Microsoft Windows NT 10.0.26200.0
+commit=NOT_A_GIT_REPO
+exit=0
+---
+template=classic      secured_violations=none
+template=classic      vulnerable_detected=13 oracle(s)
+template=classic      fault=missing_query_acl              oracle.index.acl=violation
+template=classic      fault=missing_tenant_filter          oracle.index.tenant=violation
+template=classic      fault=lost_chunk_acl_metadata        oracle.index.acl=violation
+template=classic      fault=stale_cache_after_revocation   oracle.cache.leak=violation
+template=classic      fault=unscoped_cache_key             oracle.cache.key_scope=violation
+template=classic      fault=deleted_doc_retrievable        oracle.index.deletion=violation
+template=classic      fault=stale_cache_after_deletion     oracle.cache.deletion_propagation=violation
+template=classic      fault=stale_memory_after_deletion    oracle.memory.deletion_propagation=violation
+template=classic      fault=unauthorized_memory_content    oracle.memory.scope=violation
+template=classic      fault=unauthorized_tool_execution    oracle.tool.policy=violation
+template=classic      fault=mutable_document_metadata      oracle.metadata.integrity=violation
+template=classic      fault=missing_source_freshness       oracle.cache.freshness=violation
+template=secret_tier  secured_violations=none
+template=secret_tier  vulnerable_detected=13 oracle(s)
+template=secret_tier  fault=missing_query_acl              oracle.index.acl=violation
+template=secret_tier  fault=missing_tenant_filter          oracle.index.tenant=violation
+template=secret_tier  fault=lost_chunk_acl_metadata        oracle.index.acl=violation
+template=secret_tier  fault=stale_cache_after_revocation   oracle.cache.leak=violation
+template=secret_tier  fault=unscoped_cache_key             oracle.cache.key_scope=violation
+template=secret_tier  fault=deleted_doc_retrievable        oracle.index.deletion=violation
+template=secret_tier  fault=stale_cache_after_deletion     oracle.cache.deletion_propagation=violation
+template=secret_tier  fault=stale_memory_after_deletion    oracle.memory.deletion_propagation=violation
+template=secret_tier  fault=unauthorized_memory_content    oracle.memory.scope=violation
+template=secret_tier  fault=unauthorized_tool_execution    oracle.tool.policy=violation
+template=secret_tier  fault=mutable_document_metadata      oracle.metadata.integrity=violation
+template=secret_tier  fault=missing_source_freshness       oracle.cache.freshness=violation
+template=three_tenant secured_violations=none
+template=three_tenant vulnerable_detected=13 oracle(s)
+template=three_tenant fault=missing_query_acl              oracle.index.acl=violation
+template=three_tenant fault=missing_tenant_filter          oracle.index.tenant=violation
+template=three_tenant fault=lost_chunk_acl_metadata        oracle.index.acl=violation
+template=three_tenant fault=stale_cache_after_revocation   oracle.cache.leak=violation
+template=three_tenant fault=unscoped_cache_key             oracle.cache.key_scope=violation
+template=three_tenant fault=deleted_doc_retrievable        oracle.index.deletion=violation
+template=three_tenant fault=stale_cache_after_deletion     oracle.cache.deletion_propagation=violation
+template=three_tenant fault=stale_memory_after_deletion    oracle.memory.deletion_propagation=violation
+template=three_tenant fault=unauthorized_memory_content    oracle.memory.scope=violation
+template=three_tenant fault=unauthorized_tool_execution    oracle.tool.policy=violation
+template=three_tenant fault=mutable_document_metadata      oracle.metadata.integrity=violation
+template=three_tenant fault=missing_source_freshness       oracle.cache.freshness=violation
+
+templates=3 faults=12 cells=42 failures=0
+note: templates provide structural diversity (tenancy, tiers, doc counts); anchor phrasing is intentionally shared so the hash embedder keeps detecting leakage.

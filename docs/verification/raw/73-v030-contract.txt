@@ -1,0 +1,21 @@
+date=2026-11-21
+command=python -m redfence.cli contract validate examples\contracts\mock.json; Write-Output "[exit=$LASTEXITCODE]"; python -m redfence.cli contract test examples\contracts\mock.json --adapter mock --out reports\final-v030-contract; Write-Output "[exit=$LASTEXITCODE]"; python -m redfence.cli contract validate README.md; Write-Output "[exit=$LASTEXITCODE]"
+cwd=E:\Projects\AI-ML\Redfence
+interpreter=Python 3.14.7
+platform=Microsoft Windows NT 10.0.26200.0
+commit=NOT_A_GIT_REPO
+exit=3
+---
+valid contract=mock-boundary-demo
+[exit=0]
+contract=mock-boundary-demo adapter=mock exit=0
+  [  satisfied] oracle.contract.matrix: 3/3 cells matched; 0 violations
+  [unsupported] oracle.contract.lifecycle: no evaluable observation: no lifecycle step replayed a cell
+  [  satisfied] oracle.contract.budget: 3/32 requests; 0 timeout(s); 0 truncated; 0 egress denied
+  [unsupported] oracle.contract.redaction: no evaluable observation: no configured secret environment variable is set
+json=reports\final-v030-contract\mock-boundary-demo.json
+sarif=reports\final-v030-contract\mock-boundary-demo.sarif
+junit=reports\final-v030-contract\mock-boundary-demo.junit.xml
+[exit=0]
+error=unsupported_format path=README.md
+[exit=3]

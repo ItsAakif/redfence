@@ -1,0 +1,14 @@
+﻿=== HTML REPORT GENERATION (FINAL) ===
+Discriminative validity (G2): PASS
+  [ok ] missing_query_acl                  oracle.index.acl           secured=satisfied   vulnerable=violation
+  [ok ] missing_tenant_filter              oracle.index.tenant        secured=satisfied   vulnerable=violation
+  [ok ] lost_chunk_acl_metadata            oracle.index.acl           secured=satisfied   vulnerable=violation
+  [ok ] stale_cache_after_revocation       oracle.cache.leak          secured=satisfied   vulnerable=violation
+  [ok ] unscoped_cache_key                 oracle.cache.key_scope     secured=satisfied   vulnerable=violation
+  [ok ] deleted_doc_retrievable            oracle.index.deletion      secured=satisfied   vulnerable=violation
+  [ok ] unauthorized_memory_content        oracle.memory.scope        secured=satisfied   vulnerable=violation
+  [ok ] unauthorized_tool_execution        oracle.tool.policy         secured=satisfied   vulnerable=violation
+secured exit=0 vulnerable exit=1
+secured json=reports\demo\scenario_cc7b7f8fd1b2029c.json
+vulnerable html=reports\demo\scenario_661c75afe08a4c7f.html
+[exit=0 elapsed=1.17s]

@@ -1,0 +1,42 @@
+date=2026-11-19
+command=.venv\Scripts\python.exe -m redfence.cli demo --isolated-oracles
+cwd=E:\Projects\AI-ML\Redfence
+interpreter=Python 3.14.7
+platform=Microsoft Windows NT 10.0.26200.0
+commit=NOT_A_GIT_REPO
+exit=0
+---
+Discriminative validity (G2): PASS
+  [ok ] missing_query_acl                  oracle.index.acl           secured=satisfied   vulnerable=violation
+  [ok ] missing_tenant_filter              oracle.index.tenant        secured=satisfied   vulnerable=violation
+  [ok ] lost_chunk_acl_metadata            oracle.index.acl           secured=satisfied   vulnerable=violation
+  [ok ] stale_cache_after_revocation       oracle.cache.leak          secured=satisfied   vulnerable=violation
+  [ok ] unscoped_cache_key                 oracle.cache.key_scope     secured=satisfied   vulnerable=violation
+  [ok ] deleted_doc_retrievable            oracle.index.deletion      secured=satisfied   vulnerable=violation
+  [ok ] stale_cache_after_deletion         oracle.cache.deletion_propagation secured=satisfied   vulnerable=violation
+  [ok ] stale_memory_after_deletion        oracle.memory.deletion_propagation secured=satisfied   vulnerable=violation
+  [ok ] unauthorized_memory_content        oracle.memory.scope        secured=satisfied   vulnerable=violation
+  [ok ] unauthorized_tool_execution        oracle.tool.policy         secured=satisfied   vulnerable=violation
+  [ok ] mutable_document_metadata          oracle.metadata.integrity  secured=satisfied   vulnerable=violation
+  [ok ] missing_source_freshness           oracle.cache.freshness     secured=satisfied   vulnerable=violation
+secured exit=0 vulnerable exit=1
+
+---
+appendix: determinism (two independent demo runs)
+command_a=.venv\Scripts\python.exe -m redfence.cli demo --out C:\Users\aakif\AppData\Local\Temp\redfence-t64-det-a
+command_b=.venv\Scripts\python.exe -m redfence.cli demo --out C:\Users\aakif\AppData\Local\Temp\redfence-t64-det-b
+run_a_exit=0
+run_b_exit=0
+file_set_equal=True
+sha256_a scenario_15104689767409a4.html c5ea6226e423829d5a5efcafce5697a22e8bc137af53e29c60a517a2d33dc93f
+sha256_b scenario_15104689767409a4.html c5ea6226e423829d5a5efcafce5697a22e8bc137af53e29c60a517a2d33dc93f
+equal scenario_15104689767409a4.html True
+sha256_a scenario_15104689767409a4.json 01f19b08873b0cab4f8b22d43f4a843d2e56da263d41a1d8202723932a352077
+sha256_b scenario_15104689767409a4.json 01f19b08873b0cab4f8b22d43f4a843d2e56da263d41a1d8202723932a352077
+equal scenario_15104689767409a4.json True
+sha256_a scenario_2fef19eea7089471.html a37194265458b6e25588b1b262e4694bf56c7c6a709f906963e94398e496f587
+sha256_b scenario_2fef19eea7089471.html a37194265458b6e25588b1b262e4694bf56c7c6a709f906963e94398e496f587
+equal scenario_2fef19eea7089471.html True
+sha256_a scenario_2fef19eea7089471.json a5872e7c8058f62af9fd9679dec64a8419efc7598a9b77440af0cc4363b05fc2
+sha256_b scenario_2fef19eea7089471.json a5872e7c8058f62af9fd9679dec64a8419efc7598a9b77440af0cc4363b05fc2
+equal scenario_2fef19eea7089471.json True

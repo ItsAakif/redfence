@@ -1,0 +1,7 @@
+=== ISOLATED ORACLE PROCESS (G3) ===
+date=2026-11-10T21:27:29.3319590+05:30
+parent_pid=20516
+profile=secured exit=0 parent_pid=20516 oracle_pid=8420 separate_process=True violations=[]
+profile=vulnerable exit=1 parent_pid=20516 oracle_pid=13676 separate_process=True violations=['oracle.index.acl', 'oracle.index.tenant', 'oracle.index.deletion', 'oracle.cache.key_scope', 'oracle.cache.leak', 'oracle.cache.freshness', 'oracle.metadata.integrity', 'oracle.context.exposure', 'oracle.response.disclosure', 'oracle.memory.scope', 'oracle.tool.policy']
+
+isolated_exit=0

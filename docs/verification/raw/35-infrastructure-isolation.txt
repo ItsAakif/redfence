@@ -1,0 +1,272 @@
+=== INFRASTRUCTURE ISOLATION (G6/G9) ===
+host=Microsoft Windows NT 10.0.26200.0
+date=2026-11-10T21:27:12.4278879+05:30
+
+--- docker version ---
+Client:
+ Version:           29.7.2
+ API version:       1.55
+ Go version:        go1.26.5
+ Git commit:        a7dcaa6
+ Built:             Wed Aug  5 18:31:33 2026
+ OS/Arch:           windows/amd64
+ Context:           desktop-linux
+
+Server: Docker Desktop 4.90.0 (238679)
+ Engine:
+  Version:          29.7.2
+  API version:      1.55 (minimum version 1.40)
+  Go version:       go1.26.5
+  Git commit:       6a43e3d
+  Built:            Wed Aug  5 18:28:36 2026
+  OS/Arch:          linux/amd64
+  Experimental:     false
+ containerd:
+  Version:          v2.3.3
+  GitCommit:        aad11006b869517fcd3009450b6f82da282e1a9b
+ runc:
+  Version:          1.4.3
+  GitCommit:        v1.4.3-0-gbb14dabe
+ docker-init:
+  Version:          0.19.0
+  GitCommit:        de40ad0
+
+--- docker compose config (normalized) ---
+name: redfence
+services:
+  platform-check:
+    command:
+      - |
+        set -e
+        PGPASSWORD=change_me_platform psql -h platform-db -U redfence_platform -d redfence_platform -c 'select 1'
+        if PGPASSWORD=change_me_sut psql -h platform-db -U redfence_sut -d redfence_platform -c 'select 1' >/dev/null 2>&1; then
+          echo PLATFORM_CROSS_CREDENTIAL_ACCEPTED; exit 1
+        else
+          echo PLATFORM_CREDENTIAL_ISOLATION_OK
+        fi
+        if getent hosts sut-db >/dev/null 2>&1; then
+          echo PLATFORM_CROSS_NETWORK_ACCEPTED; exit 1
+        else
+          echo PLATFORM_NETWORK_ISOLATION_OK
+        fi
+    depends_on:
+      platform-db:
+        condition: service_healthy
+        required: true
+    entrypoint:
+      - /bin/bash
+      - -c
+    image: pgvector/pgvector:pg16
+    networks:
+      platform: null
+  platform-db:
+    environment:
+      POSTGRES_DB: redfence_platform
+      POSTGRES_PASSWORD: change_me_platform
+      POSTGRES_USER: redfence_platform
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U redfence_platform -d redfence_platform
+      timeout: 3s
+      interval: 3s
+      retries: 20
+    image: pgvector/pgvector:pg16
+    networks:
+      platform: null
+    volumes:
+      - type: volume
+        source: platform_data
+        target: /var/lib/postgresql/data
+        volume: {}
+  sink:
+    command:
+      - python
+      - -m
+      - http.server
+      - "8080"
+    image: python:3.14-slim
+    networks:
+      egress: null
+  sut-check:
+    command:
+      - |
+        set -e
+        PGPASSWORD=change_me_sut psql -h sut-db -U redfence_sut -d redfence_sut -c 'select 1'
+        if PGPASSWORD=change_me_platform psql -h sut-db -U redfence_platform -d redfence_sut -c 'select 1' >/dev/null 2>&1; then
+          echo SUT_CROSS_CREDENTIAL_ACCEPTED; exit 1
+        else
+          echo SUT_CREDENTIAL_ISOLATION_OK
+        fi
+        if getent hosts platform-db >/dev/null 2>&1; then
+          echo SUT_CROSS_NETWORK_ACCEPTED; exit 1
+        else
+          echo SUT_NETWORK_ISOLATION_OK
+        fi
+    depends_on:
+      sut-db:
+        condition: service_healthy
+        required: true
+    entrypoint:
+      - /bin/bash
+      - -c
+    image: pgvector/pgvector:pg16
+    networks:
+      sut: null
+  sut-db:
+    environment:
+      POSTGRES_DB: redfence_sut
+      POSTGRES_PASSWORD: change_me_sut
+      POSTGRES_USER: redfence_sut
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U redfence_sut -d redfence_sut
+      timeout: 3s
+      interval: 3s
+      retries: 20
+    image: pgvector/pgvector:pg16
+    networks:
+      sut: null
+    volumes:
+      - type: volume
+        source: sut_data
+        target: /var/lib/postgresql/data
+        volume: {}
+  target-sandbox:
+    command:
+      - python
+      - /app/sandbox_probe.py
+    depends_on:
+      sink:
+        condition: service_started
+        required: true
+      sut-db:
+        condition: service_healthy
+        required: true
+    image: python:3.14-slim
+    networks:
+      egress: null
+      sut: null
+    volumes:
+      - type: bind
+        source: E:\Projects\AI-ML\Redfence\docker\target
+        target: /app
+        read_only: true
+        bind: {}
+networks:
+  egress:
+    name: redfence_egress
+    internal: true
+  platform:
+    name: redfence_platform
+    internal: true
+  sut:
+    name: redfence_sut
+    internal: true
+volumes:
+  platform_data:
+    name: redfence_platform_data
+  sut_data:
+    name: redfence_sut_data
+
+--- compose file sha256 ---
+9326098370653186EBF680BC1ABA066821CAA84F07BE55941E5D9D680BBF6A57
+--- run ---
+$ docker compose up -d platform-db sut-db sink
+Network redfence_egress Creating 
+ Volume redfence_platform_data Creating 
+ Volume redfence_sut_data Creating 
+ Network redfence_platform Creating 
+ Network redfence_sut Creating 
+ Network redfence_egress Creating 
+ Network redfence_platform Creating 
+ Volume redfence_platform_data Creating 
+ Volume redfence_sut_data Creating 
+ Network redfence_sut Creating 
+ Volume redfence_platform_data Created 
+ Volume redfence_platform_data Created 
+ Volume redfence_sut_data Created 
+ Volume redfence_sut_data Created 
+ Network redfence_platform Created 
+ Network redfence_platform Created 
+ Container redfence-platform-db-1 Creating 
+ Network redfence_sut Created 
+ Network redfence_sut Created 
+ Container redfence-sut-db-1 Creating 
+ Network redfence_egress Created 
+ Network redfence_egress Created 
+ Container redfence-sink-1 Creating 
+ Container redfence-platform-db-1 Created 
+ Container redfence-sut-db-1 Created 
+ Container redfence-sink-1 Created 
+ Container redfence-sut-db-1 Starting 
+ Container redfence-sink-1 Starting 
+ Container redfence-platform-db-1 Starting 
+ Container redfence-sut-db-1 Started 
+ Container redfence-sink-1 Started 
+ Container redfence-platform-db-1 Started
+$ docker compose run --rm platform-check
+?column? 
+----------
+        1
+(1 row)
+
+PLATFORM_CREDENTIAL_ISOLATION_OK
+PLATFORM_NETWORK_ISOLATION_OK
+ Container redfence-platform-db-1 Running 
+ Container redfence-platform-db-1 Waiting 
+ Container redfence-platform-db-1 Healthy 
+ Container redfence-platform-check-run-2bec45274104 Creating 
+ Container redfence-platform-check-run-2bec45274104 Created
+
+$ docker compose run --rm sut-check
+?column? 
+----------
+        1
+(1 row)
+
+SUT_CREDENTIAL_ISOLATION_OK
+SUT_NETWORK_ISOLATION_OK
+ Container redfence-sut-db-1 Running 
+ Container redfence-sut-db-1 Waiting 
+ Container redfence-sut-db-1 Healthy 
+ Container redfence-sut-check-run-f57a2ba32992 Creating 
+ Container redfence-sut-check-run-f57a2ba32992 Created
+
+$ docker compose run --rm target-sandbox
+{"external_reachable": false, "platform_db_connects": false, "platform_db_resolves": false, "sink_reachable": true, "sink_status": 200, "sut_db_connects": true, "sut_db_resolves": true}
+ Container redfence-sut-db-1 Running 
+ Container redfence-sink-1 Running 
+ Container redfence-sut-db-1 Waiting 
+ Container redfence-sut-db-1 Healthy 
+ Container redfence-target-sandbox-run-323a44a4ef83 Creating 
+ Container redfence-target-sandbox-run-323a44a4ef83 Created
+
+$ docker compose logs --no-color sink
+sink-1  | 172.23.0.3 - - [10/Nov/2026 15:57:24] "GET / HTTP/1.1" 200 -
+$ docker compose down -v
+Container redfence-platform-db-1 Stopping 
+ Container redfence-sink-1 Stopping 
+ Container redfence-sut-db-1 Stopping 
+ Container redfence-platform-db-1 Stopped 
+ Container redfence-platform-db-1 Removing 
+ Container redfence-platform-db-1 Removed 
+ Container redfence-sut-db-1 Stopped 
+ Container redfence-sut-db-1 Removing 
+ Container redfence-sut-db-1 Removed 
+ Container redfence-sink-1 Stopped 
+ Container redfence-sink-1 Removing 
+ Container redfence-sink-1 Removed 
+ Network redfence_egress Removing 
+ Network redfence_platform Removing 
+ Network redfence_sut Removing 
+ Volume redfence_platform_data Removing 
+ Volume redfence_sut_data Removing 
+ Volume redfence_platform_data Removed 
+ Volume redfence_sut_data Removed 
+ Network redfence_egress Removed 
+ Network redfence_platform Removed 
+ Network redfence_sut Removed
+
+infra_exit=0

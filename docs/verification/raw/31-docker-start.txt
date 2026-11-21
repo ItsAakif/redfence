@@ -1,0 +1,3 @@
+﻿=== DOCKER START ATTEMPT ===
+Docker Desktop executable not found
+docker daemon did not become ready within 180s
