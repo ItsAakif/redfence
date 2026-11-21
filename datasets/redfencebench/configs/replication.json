@@ -1,0 +1,29 @@
+{
+  "cases": [
+    {
+      "id": "replication_replica",
+      "propagate": true,
+      "store": "replica"
+    },
+    {
+      "id": "replication_backup",
+      "propagate": true,
+      "store": "backup"
+    },
+    {
+      "id": "replication_retention",
+      "propagate": true,
+      "store": "retention"
+    },
+    {
+      "id": "replication_replica_stale",
+      "propagate": false,
+      "store": "replica"
+    }
+  ],
+  "config_version": "redfencebench-configs-0.1.0",
+  "dataset_version": "redfencebench-0.4.0",
+  "kind": "replication",
+  "seed": 20260101,
+  "template": "classic"
+}

@@ -1,0 +1,83 @@
+{
+  "contract_version": 1,
+  "id": "mock-boundary-demo",
+  "dataset": {
+    "version": "redfencebench-0.4.0",
+    "template": "classic",
+    "seed": 20260101
+  },
+  "identities": [
+    {
+      "id": "alice",
+      "tenant": "t_alpha",
+      "roles": ["engineer"],
+      "groups": ["alpha-eng"],
+      "clearance": "confidential"
+    },
+    {
+      "id": "bob",
+      "tenant": "t_beta",
+      "roles": ["engineer"],
+      "groups": ["beta-eng"],
+      "clearance": "confidential"
+    }
+  ],
+  "sources": [
+    {
+      "id": "doc_alpha_secret",
+      "tenant": "t_alpha",
+      "classification": "confidential",
+      "acl": {
+        "allowed_roles": ["engineer"],
+        "allowed_groups": ["alpha-eng"]
+      },
+      "canary_ref": "alpha"
+    },
+    {
+      "id": "doc_beta_secret",
+      "tenant": "t_beta",
+      "classification": "confidential",
+      "acl": {
+        "allowed_roles": ["engineer"],
+        "allowed_groups": ["beta-eng"]
+      },
+      "canary_ref": "beta"
+    }
+  ],
+  "matrix": [
+    {
+      "id": "alice_reads_alpha",
+      "identity": "alice",
+      "source": "doc_alpha_secret",
+      "action": "read",
+      "expect": "allow"
+    },
+    {
+      "id": "bob_reads_alpha",
+      "identity": "bob",
+      "source": "doc_alpha_secret",
+      "action": "read",
+      "expect": "deny"
+    },
+    {
+      "id": "bob_reads_beta",
+      "identity": "bob",
+      "source": "doc_beta_secret",
+      "action": "read",
+      "expect": "allow"
+    }
+  ],
+  "lifecycle": [],
+  "limits": {
+    "timeout_ms": 2000,
+    "max_response_bytes": 65536,
+    "max_requests": 32,
+    "egress_allowlist": []
+  },
+  "redaction": {
+    "secrets": []
+  },
+  "target": {
+    "adapter": "mock"
+  }
+}

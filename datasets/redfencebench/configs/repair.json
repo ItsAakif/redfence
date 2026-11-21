@@ -1,0 +1,42 @@
+{
+  "cases": [
+    {
+      "document": "doc_alpha_secret",
+      "id": "repair_alpha_cache_purge",
+      "plan": {
+        "delete_memory": false,
+        "purge_cache": true,
+        "reingest": false,
+        "restore_acl": false
+      },
+      "principal": "p_alpha_intern"
+    },
+    {
+      "document": "doc_alpha_secret",
+      "id": "repair_alpha_memory_purge",
+      "plan": {
+        "delete_memory": true,
+        "purge_cache": false,
+        "reingest": false,
+        "restore_acl": false
+      },
+      "principal": "p_beta_reader"
+    },
+    {
+      "document": "doc_alpha_benign",
+      "id": "repair_alpha_benign_reingest",
+      "plan": {
+        "delete_memory": false,
+        "purge_cache": false,
+        "reingest": true,
+        "restore_acl": true
+      },
+      "principal": "p_alpha_reader"
+    }
+  ],
+  "config_version": "redfencebench-configs-0.1.0",
+  "dataset_version": "redfencebench-0.4.0",
+  "kind": "repair",
+  "seed": 20260101,
+  "template": "classic"
+}

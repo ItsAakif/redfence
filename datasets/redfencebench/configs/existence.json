@@ -1,0 +1,30 @@
+{
+  "cases": [
+    {
+      "expect": "same_response",
+      "hidden_source": "doc_alpha_secret",
+      "id": "existence_alpha_launch_code",
+      "query": "Project Nimbus launch code",
+      "visible_principal": "p_beta_reader"
+    },
+    {
+      "expect": "same_response",
+      "hidden_source": "doc_beta_secret",
+      "id": "existence_beta_access_token",
+      "query": "Project Borealis access token",
+      "visible_principal": "p_alpha_reader"
+    },
+    {
+      "expect": "same_response",
+      "hidden_source": "doc_alpha_benign",
+      "id": "existence_alpha_onboarding",
+      "query": "Alpha engineering onboarding",
+      "visible_principal": "p_beta_reader"
+    }
+  ],
+  "config_version": "redfencebench-configs-0.1.0",
+  "dataset_version": "redfencebench-0.4.0",
+  "kind": "existence",
+  "seed": 20260101,
+  "template": "classic"
+}

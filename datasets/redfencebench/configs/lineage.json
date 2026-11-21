@@ -1,0 +1,51 @@
+{
+  "cases": [
+    {
+      "derived_kind": "answer",
+      "expected": "descendant",
+      "id": "lineage_alpha_secret_reader",
+      "principal": "p_alpha_reader",
+      "source_doc": "doc_alpha_secret"
+    },
+    {
+      "derived_kind": "cache",
+      "expected": "absent",
+      "id": "lineage_alpha_secret_intern",
+      "principal": "p_alpha_intern",
+      "source_doc": "doc_alpha_secret"
+    },
+    {
+      "derived_kind": "answer",
+      "expected": "absent",
+      "id": "lineage_alpha_secret_beta_reader",
+      "principal": "p_beta_reader",
+      "source_doc": "doc_alpha_secret"
+    },
+    {
+      "derived_kind": "cache",
+      "expected": "descendant",
+      "id": "lineage_alpha_benign_reader",
+      "principal": "p_alpha_reader",
+      "source_doc": "doc_alpha_benign"
+    },
+    {
+      "derived_kind": "memory",
+      "expected": "descendant",
+      "id": "lineage_beta_secret_reader",
+      "principal": "p_beta_reader",
+      "source_doc": "doc_beta_secret"
+    },
+    {
+      "derived_kind": "answer",
+      "expected": "descendant",
+      "id": "lineage_alpha_malicious_reader",
+      "principal": "p_alpha_reader",
+      "source_doc": "doc_alpha_malicious"
+    }
+  ],
+  "config_version": "redfencebench-configs-0.1.0",
+  "dataset_version": "redfencebench-0.4.0",
+  "kind": "lineage",
+  "seed": 20260101,
+  "template": "classic"
+}
