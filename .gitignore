@@ -1,0 +1,28 @@
+# Upstream prior-art clones must stay outside the shipped tree.
+.prior-art/
+.prior-art-clones/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Generated reports / runs (must not ship in the release tree)
+reports/
+runs/
+
+# Local environment
+.env
+.env.*
+# Local command-runner scaffolding used only for verification on this host
+.verify/
+
+# Internal planning records (task contracts, owner decisions) - not public docs
+.planning/

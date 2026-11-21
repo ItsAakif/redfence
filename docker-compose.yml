@@ -1,0 +1,122 @@
+# Isolated infrastructure for the two trust domains.
+# Platform (RedFence) and system-under-test (SUT) use separate databases,
+# separate credentials, separate networks and a controlled internal egress sink.
+#
+#   docker compose up -d
+#   docker compose logs --no-color
+#
+# This file is the executable G6/G9 isolation fixture. The deterministic core
+# does not require Docker for unit tests.
+
+services:
+  platform-db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: redfence_platform
+      POSTGRES_PASSWORD: change_me_platform
+      POSTGRES_DB: redfence_platform
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U redfence_platform -d redfence_platform"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    networks:
+      - platform
+    volumes:
+      - platform_data:/var/lib/postgresql/data
+
+  sut-db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: redfence_sut
+      POSTGRES_PASSWORD: change_me_sut
+      POSTGRES_DB: redfence_sut
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U redfence_sut -d redfence_sut"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    networks:
+      - sut
+    volumes:
+      - sut_data:/var/lib/postgresql/data
+
+  platform-check:
+    image: pgvector/pgvector:pg16
+    entrypoint: ["/bin/bash", "-c"]
+    command:
+      - |
+        set -e
+        PGPASSWORD=change_me_platform psql -h platform-db -U redfence_platform -d redfence_platform -c 'select 1'
+        if PGPASSWORD=change_me_sut psql -h platform-db -U redfence_sut -d redfence_platform -c 'select 1' >/dev/null 2>&1; then
+          echo PLATFORM_CROSS_CREDENTIAL_ACCEPTED; exit 1
+        else
+          echo PLATFORM_CREDENTIAL_ISOLATION_OK
+        fi
+        if getent hosts sut-db >/dev/null 2>&1; then
+          echo PLATFORM_CROSS_NETWORK_ACCEPTED; exit 1
+        else
+          echo PLATFORM_NETWORK_ISOLATION_OK
+        fi
+    depends_on:
+      platform-db:
+        condition: service_healthy
+    networks:
+      - platform
+
+  sut-check:
+    image: pgvector/pgvector:pg16
+    entrypoint: ["/bin/bash", "-c"]
+    command:
+      - |
+        set -e
+        PGPASSWORD=change_me_sut psql -h sut-db -U redfence_sut -d redfence_sut -c 'select 1'
+        if PGPASSWORD=change_me_platform psql -h sut-db -U redfence_platform -d redfence_sut -c 'select 1' >/dev/null 2>&1; then
+          echo SUT_CROSS_CREDENTIAL_ACCEPTED; exit 1
+        else
+          echo SUT_CREDENTIAL_ISOLATION_OK
+        fi
+        if getent hosts platform-db >/dev/null 2>&1; then
+          echo SUT_CROSS_NETWORK_ACCEPTED; exit 1
+        else
+          echo SUT_NETWORK_ISOLATION_OK
+        fi
+    depends_on:
+      sut-db:
+        condition: service_healthy
+    networks:
+      - sut
+
+  sink:
+    image: python:3.14-slim
+    command: ["python", "-m", "http.server", "8080"]
+    networks:
+      - egress
+
+  target-sandbox:
+    image: python:3.14-slim
+    command: ["python", "/app/sandbox_probe.py"]
+    volumes:
+      - ./docker/target:/app:ro
+    depends_on:
+      sut-db:
+        condition: service_healthy
+      sink:
+        condition: service_started
+    networks:
+      - sut
+      - egress
+
+networks:
+  # Both trust domains are internal: no container on them can reach the public
+  # internet. The only outbound path is the controlled `egress` sink below.
+  platform:
+    internal: true
+  sut:
+    internal: true
+  egress:
+    internal: true
+
+volumes:
+  platform_data:
+  sut_data:
