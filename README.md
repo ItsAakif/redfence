@@ -1,181 +1,170 @@
 # RedFence
 
-**RedFence** is an open-source AI security assessment and adversarial evaluation
-platform. Its core research component, **RedFenceBench**, measures security
-invariant violations across the lifecycle of stateful enterprise RAG
-applications and tool-using agents.
+**RedFence** is an open-source benchmark and test harness for security-boundary
+failures in stateful RAG and tool-using agents. Its benchmark is **RedFenceBench**.
 
-The central thesis is *stateful enterprise AI security evaluation*: can we
-systematically discover, reproduce, measure and verify security invariant
-violations as identities, permissions, documents, indexes, caches, memories and
-agent capabilities change over time?
+Most AI security tooling asks whether a model *said* something unsafe. RedFence
+asks whether the application crossed a security boundary; a polished answer can
+still disclose another tenant's document.
 
-RedFence separates two things that are often conflated:
+The core idea: test authorization as state changes (revocation, deletion, ACL
+edits, TTL expiry) across the index, caches, memory and tools. RedFence is
+research software, not a scanner or firewall; it ships synthetic data and
+deterministic oracles.
 
-1. an LLM **producing an unsafe response**, and
-2. an application **violating an actual security boundary**.
+## What it is and what it is not
 
-Both matter; they are measured independently, using **deterministic oracles**
-and recorded **Evidence**.
+| It is | It is not |
+| --- | --- |
+| A benchmark and test harness for application-level boundary violations | A scanner, firewall, or runtime guard |
+| Deterministic oracles with no LLM judge in the core | A model-safety or content-moderation benchmark |
 
-> Status: **0.3.0 external-target boundary** release. Contract v1, adapters, new
-> lifecycle oracles and a mutation self-test extend the deterministic core. This
-> is research software, not a production service. The 0.2.0 measurement-core
-> hardening record is kept below as historical context. Full-suite, lint, type
-> and script results for 0.3.0 are recorded in the
-> [0.3.0 verification report](docs/verification/v030-report.md), backed by
-> `docs/verification/raw/70-*` … `raw/85-*`; CI is green on Ubuntu and Windows
-> with Python 3.11 and 3.12 at tag `v0.3.0`.
+## How it works
+```
+contract -> adapter -> scenario / lifecycle -> observations -> oracle -> Evidence -> report / exit code
+```
 
-## What exists at 0.3.0
-
-- **Contract v1** (JSON or YAML) declares identities, sources, a permission
-  matrix, lifecycle events, request limits and a redaction list. A bounded loader
-  rejects oversized or deeply nested files, YAML tags/anchors/aliases, duplicate
-  keys, non-string keys, path traversal, environment interpolation and unknown
-  fields. JSON needs no optional dependency.
-- **Adapters**: `mock` (default deterministic reference target), `callable`
-  (Python API only) and `http` (JSON over HTTPS or loopback, egress allowlist,
-  redirects disabled, response caps). Live HTTP endpoints are **NOT VERIFIED**;
-  the HTTP adapter is exercised through a fake transport in the test suite and
-  the loopback transport against a real local socket is verified
-  (`docs/verification/raw/83-*`).
-- **`redfence contract validate`** returns `0` for a valid contract and `3` for
-  an invalid or unsafe one. **`redfence contract test`** runs the matrix and
-  lifecycle against an adapter and returns `0` pass, `1` confirmed boundary
-  violation, `2` inconclusive/unsupported/adapter error, `3` invalid contract.
-- **New oracle families**: `contract` (matrix, lifecycle, budget, redaction),
-  `lineage` (derivative leakage), `existence` (twin corpus, optional
-  permutation), `repair` (selective repair and collateral damage), `capability`
-  (attenuation, expiry, scope), `MCP` (manifest, rug-pull, shadowing) and
-  `retention`/`replica` (deletion durability and replica consistency). The
-  existing fifteen deterministic oracles and `default_oracles()` are unchanged.
-- **Lineage** is reconstructed from observations and the corpus, not by
-  instrumenting the target; an adapter that discloses no provenance yields
-  `UNSUPPORTED`, never a fabricated pass.
-- **Mutation self-test**: a known-good control removal must be killed by
-  `oracle.cache.leak`; a behaviour-preserving known-bad mutant must survive.
-  Mutation score is report-only in 0.3.0.
-- **Optional extras**: `contract` (PyYAML), `property` (Hypothesis), `inspect`
-  and `otel`. All optional imports are lazy; `import redfence` imports none of
-  them.
-- **Dataset `redfencebench-0.4.0`**: a provenance-schema/config bump, not a
-  content change. Classic document bytes and content hashes are unchanged; four
-  deterministic lifecycle configs are added under
-  `datasets/redfencebench/configs/`.
-
-The full-suite test count is recorded in
-[`docs/verification/v030-report.md`](docs/verification/v030-report.md); it is
-deliberately not hard-coded in this README.
-
-## 0.2.0 measurement-core hardening (historical)
-
-The following records the 0.2.0 milestone. It is kept for history and is not a
-0.3.0 claim; see
-[`docs/verification/hardening-report.md`](docs/verification/hardening-report.md).
-
-- `RedFenceBench` synthetic dataset (deterministic, seeded, multi-tenant) in
-  **three structural templates** swept for identical G2 behaviour.
-- One **configurable RAG target** with a secured profile, a vulnerable profile,
-  and twelve independently injectable faults, each mapped to an executable
-  oracle — including **deletion propagation to cache and memory**.
-- The **permission-revocation vertical slice**: ingest → authorize → retrieve →
-  cache → memory → revoke → replay via every access path.
-- **Lifecycle controls**: cascading deletion with cache/memory purge, ACL
-  modification with epoch bump, and TTL-based memory expiry.
-- **Seven executable held-out families**: delegation chain, memory poisoning,
-  cache replay, MCP-like tool scope, deletion propagation, ACL-modify replay,
-  memory TTL expiry.
-- **Fifteen executable deterministic oracles** for index, cache freshness, cache
-  reuse, cache deletion propagation, metadata integrity, memory scope and
-  expiry, memory deletion propagation, tool policy, context, response and
-  utility.
-- **Evidence-backed** findings, **JSON + HTML** reports that are **byte-identical
-  for fixed inputs** (logical clock, no wall time), a **reproducible run
-  manifest**, and regression tests with CI exit semantics.
-- **Process-isolated oracles** (`--isolated-oracles`): scoring runs in a child
-  process from a frozen snapshot, in a real different PID from the target.
-- **Historical Docker isolation fixture** (two databases, separate credentials,
-  internal networks, controlled egress sink) captured **2026-11-10** and **not
-  re-run in 0.2.0 or 0.3.0**; default execution is in-process.
-- **Clustered statistics** over **8 scenario families / 24 family-template rows
-  over 25 seeds** (not 13 labels).
-
-Deliberately deferred **at 0.2.0** (some are now addressed by 0.3.0): adaptive
-attack selection, broad attack catalogue, Redis, distributed workers, dashboard,
-real LLM/embedding providers, MCP, multimodal, retention/replica/backup stores.
+A contract v1 file declares identities, sources, a permission matrix, lifecycle
+events and request limits. An adapter presents the target through `mock`,
+`callable`, or `http`; the runner executes the matrix and replays lifecycle
+steps. Deterministic oracles emit Evidence, the report layer writes JSON/HTML or
+SARIF/JUnit, and the exit code derives from the evidence. Missing observations
+become `unsupported`, never a pass.
 
 ## Quick start
-
-Windows (commands executed on the verification host):
-
 ```powershell
+# Windows (PowerShell)
 python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -e ".[dev,contract,property,inspect,otel]"
-.\.venv\Scripts\python.exe -m pytest -q
-.\.venv\Scripts\python.exe -m pytest -m property -q
-.\.venv\Scripts\python.exe examples\facets_demo.py
-.\.venv\Scripts\python.exe -m redfence.cli demo --out reports\
-.\.venv\Scripts\python.exe -m redfence.cli contract validate examples\contracts\mock.json
-.\.venv\Scripts\python.exe -m redfence.cli contract test examples\contracts\mock.json --adapter mock --out reports\contract-demo
-.\.venv\Scripts\python.exe scripts\run_heldout.py --out reports\heldout
-.\.venv\Scripts\python.exe scripts\run_statistics.py --seeds 25 --templates
-.\.venv\Scripts\python.exe scripts\run_template_sweep.py
-.\.venv\Scripts\python.exe -m redfence.cli demo --isolated-oracles
-.\.venv\Scripts\python.exe scripts\run_mutation.py
-# Historical Docker isolation fixture (captured 2026-11-10; not re-run):
-.\.venv\Scripts\python.exe scripts\run_infrastructure_isolation.py
+.\.venv\Scripts\Activate.ps1
+python -m pip install -e ".[dev,contract,property,inspect,otel]"
 ```
 
-`demo` runs the revocation scenario against the secured and vulnerable profiles,
-checks discriminative validity (G2), writes JSON + HTML reports, and returns an
-exit code (`0` pass, `1` confirmed secured regression, `2` inconclusive,
-unsupported or infrastructure failure).
+```bash
+# macOS/Linux
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -e ".[dev,contract,property,inspect,otel]"
+```
 
-`contract test` on the checked-in example writes deterministic JSON, SARIF and
-JUnit files and exits `0`; `contract validate` exits `0` for the same file.
-The verification host used Python 3.14.7 (`py -3.12` was not installed); the
-project declares `requires-python = ">=3.11"`.
+```bash
+python -m pytest -q
+python -m redfence.cli demo
+python -m redfence.cli contract validate examples/contracts/mock.json
+python -m redfence.cli contract test examples/contracts/mock.json --adapter mock --out reports/contract-demo
+python examples/facets_demo.py
+```
+If activation is blocked on Windows, call `.\.venv\Scripts\python.exe` directly.
 
-## Repository layout
+## What you will see
+`demo` runs the revocation scenario against secured and vulnerable profiles: all
+twelve faults are discriminated, secured exits `0`, vulnerable exits `1` (add
+`--out reports/demo` for JSON and HTML). `contract test` runs the example matrix
+against `mock`, exits `0` when clean, and writes JSON, SARIF and JUnit; lifecycle
+and redaction rows are `unsupported` here, not passes.
 
 ```
-src/redfence/
-  core/         domain models, Evidence, Protocol interfaces, stable IDs, lineage, capability
-  adapters/     deterministic embedder + in-memory vector store
-  targets/      configurable RAG target, fault flags, synthetic tool runtime, HTTP boundary, retention
-  bench/        dataset generator, scenario, oracles/scorers, metrics, runner, contract runner
-  contracts/    contract v1 schema, bounded loader, adapters
-  integrations/ optional Inspect/OTel adapters (lazy imports)
-  report/       JSON + HTML + contract JSON/SARIF/JUnit reporting
-  db/           SQLAlchemy models for the platform/SUT databases (optional)
-  api/          FastAPI app (optional)
-docs/           benchmark spec, architecture, threat model, claims, standards, decisions
-datasets/       RedFenceBench generator + versioned manifests and lifecycle configs
-examples/       checked-in example contracts
-tests/          deterministic regression tests
+Discriminative validity (G2): PASS (12/12 faults discriminated)
+secured exit=0 vulnerable exit=1
+contract=mock-boundary-demo adapter=mock exit=0
+  [  satisfied] oracle.contract.matrix: 3/3 cells matched; 0 violations
+```
+
+## Test your own RAG or agent
+A contract is all RedFence needs to test a target it did not write. Save this as
+`my-contract.yaml` (YAML needs the optional `contract` extra; JSON does not):
+
+```yaml
+contract_version: 1
+id: my-rag-boundary
+dataset: {version: redfencebench-0.4.0, template: classic, seed: 20260101}
+identities: [{id: alice, tenant: t_alpha, roles: [engineer], groups: [alpha-eng], clearance: confidential},
+             {id: bob, tenant: t_beta, roles: [engineer], groups: [beta-eng], clearance: confidential}]
+sources: [{id: doc_alpha_secret, tenant: t_alpha, classification: confidential, acl: {allowed_roles: [engineer], allowed_groups: [alpha-eng]}, canary_ref: alpha}]
+matrix: [{id: alice_reads_alpha, identity: alice, source: doc_alpha_secret, action: read, expect: allow},
+         {id: bob_reads_alpha, identity: bob, source: doc_alpha_secret, action: read, expect: deny}]
+lifecycle: []
+limits: {timeout_ms: 2000, max_response_bytes: 65536, max_requests: 32, egress_allowlist: []}
+redaction: {secrets: []}
+target: {adapter: mock}
+```
+
+Identities are principals. Sources are documents with ACLs. The matrix is the
+expected allow/deny outcome. Lifecycle steps (none here) mutate state and replay
+affected cells.
+
+Run `python -m redfence.cli contract validate my-contract.yaml`, then
+`python -m redfence.cli contract test my-contract.yaml --adapter mock --out reports/my-contract`.
+For a real endpoint use `--adapter http`, set `target.url`, and give a non-empty
+`limits.egress_allowlist`; redirects are off and live third-party HTTP is **NOT VERIFIED** (loopback is).
+
+## Using the library (advanced facets)
+Lineage, existence, repair, capability, MCP and retention/replica oracles are
+Python-level facets in 0.3.0, exercised by
+[`examples/facets_demo.py`](examples/facets_demo.py). They are not CLI
+subcommands and are `partial` in the claim register. The demo prints one line
+per oracle and exits `0` even on a deliberate `violation`.
+
+## How to test this project
+```bash
+python -m pytest -o addopts="" -q                         # unit + integration suite
+python -m pytest -m property -q                           # Hypothesis invariants
+python scripts/run_mutation.py                            # mutation self-test
+python scripts/run_heldout.py --out reports/heldout       # seven held-out families
+python scripts/run_template_sweep.py                      # templates x faults sweep
+python scripts/run_statistics.py --seeds 25 --templates   # clustered statistics
+ruff check . --no-cache                                   # lint
+mypy src                                                  # type check
+```
+
+The suite (`600+` tests; exact count in the verification report) covers
+scenarios, oracles, contracts and reporting. Property, mutation, held-out, sweep
+and statistics runners cover invariants, harness sensitivity and separation.
+Ruff and mypy are the static gate.
+
+## Exit codes
+
+| Code | Meaning |
+| --- | --- |
+| `0` | All applicable required checks passed. |
+| `1` | A confirmed security violation or regression. |
+| `2` | Inconclusive, unsupported, or an adapter/infrastructure failure. |
+| `3` | Invalid or unsafe contract file (`contract validate` / `contract test`). |
+
+## Verification status
+
+Version 0.3.0. CI is green on Ubuntu and Windows with Python 3.11 and 3.12
+across all four matrix cells. Local captures back the suite, demo, contract,
+held-out, sweep, statistics, mutation, lint and type results in the
+[0.3.0 verification report](docs/verification/v030-report.md); claim status is
+in [docs/claims.md](docs/claims.md).
+
+Deliberately unverified: live third-party HTTP endpoints (only loopback is
+tested), the historical Docker/G6/G9 fixtures, and library-level facets
+(`partial`). The 0.2.0 hardening record is historical: see the
+[hardening report](docs/verification/hardening-report.md) and [CHANGELOG.md](CHANGELOG.md).
+
+## Repository map
+
+```
+src/redfence/core/      domain models, Evidence, protocols, lineage, capability
+src/redfence/bench/     dataset, scenarios, oracles, contract runner, metrics
+src/redfence/targets/   configurable RAG target, faults, tools, HTTP, retention
+src/redfence/contracts/ contract v1 schema, bounded loader, target adapters
+datasets/               RedFenceBench generator, manifests, lifecycle configs
+scripts/                held-out, sweep, statistics and mutation runners
+docs/                   spec, architecture, threat model, claims, ADRs, verification
+tests/                  deterministic suite and fixtures
 ```
 
 ## Documentation
+- [Benchmark specification](docs/benchmark-spec.md) - dimensions, gates, contract v1 and the oracle table
+- [Architecture](docs/architecture.md) - components, trust domains and the contract seam
+- [Threat model](docs/threat-model.md) - assets, adversaries and trust boundaries
+- [Claims](docs/claims.md) - public claim register with evidence status
+- [Decisions](docs/decisions/) - architecture decision records
+- [0.3.0 verification report](docs/verification/v030-report.md) - captures and measured results
 
-- [`docs/benchmark-spec.md`](docs/benchmark-spec.md) — dimensions A–D, gates G1–G9, contract v1, oracle table
-- [`docs/architecture.md`](docs/architecture.md) — architecture, trust domains, contract seam
-- [`docs/threat-model.md`](docs/threat-model.md) — assets, adversaries, boundaries, external-target risks
-- [`docs/standards/traceability.md`](docs/standards/traceability.md) — standards mapping
-- [`docs/claims.md`](docs/claims.md) — public claim register and evidence status
-- [`docs/prior-art/`](docs/prior-art/) — code-level prior-art audit
-- [`docs/research-gaps.md`](docs/research-gaps.md) — gaps and differentiation
-- [`docs/verification/hardening-report.md`](docs/verification/hardening-report.md) — historical: 0.2.0 measurement-core hardening
-- [`docs/verification/lifecycle-breadth-report.md`](docs/verification/lifecycle-breadth-report.md) — historical: deletion propagation, lifecycle extensions, templates
-- [`docs/verification/isolation-and-statistics-report.md`](docs/verification/isolation-and-statistics-report.md) — historical: G3/G5/G6/G7/G9 closure
-- [`docs/decisions/`](docs/decisions/) — architecture decision records
-- [`CHANGELOG.md`](CHANGELOG.md) — release history
-- [`SECURITY.md`](SECURITY.md) — supported versions, reporting, safe use
-- [`CONTRIBUTING.md`](CONTRIBUTING.md) — development, gates and clean-room policy
-- [`CITATION.cff`](CITATION.cff) — citation metadata
-
-## Licence
-
-Apache-2.0 (see `LICENSE`). Upstream projects studied during the prior-art audit
-are **not** vendored into the shipped tree; see
-`docs/prior-art/inventory-and-licences.md`.
+## Contributing, security and licence
+- Contributing: see [CONTRIBUTING.md](CONTRIBUTING.md) for development gates and the clean-room policy.
+- Security: see [SECURITY.md](SECURITY.md) for supported versions and safe use.
+- Licence: Apache-2.0; see [LICENSE](LICENSE). Upstream prior-art projects are not vendored into the shipped tree.
